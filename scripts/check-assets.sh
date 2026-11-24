@@ -39,6 +39,11 @@ while IFS= read -r path; do
   missing=$((missing + 1))
 done <<<"$refs"
 
+if [[ $count -eq 0 ]]; then
+  echo "check-assets: read no links (the here-string failed?); the check proved nothing" >&2
+  exit 1
+fi
+
 if [[ $missing -gt 0 ]]; then
   echo "check-assets: $missing of $count linked file(s) missing" >&2
   exit 1
