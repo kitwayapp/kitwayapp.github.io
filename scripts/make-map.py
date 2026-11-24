@@ -59,7 +59,7 @@ def periodic_line(rng, start, end, steps, amplitude):
 
     The sideways bend is periodic (zero offset and the same slope at both ends), and one extra point beyond
     each end, taken from the next tile, guides the curve's end tangents, so the tile meets itself without a
-    step or a kink. Returns the points with those two guides first and last.
+    step or a kink.
     """
     (x0, y0), (x1, y1) = start, end
     length = math.hypot(x1 - x0, y1 - y0)
@@ -71,7 +71,9 @@ def periodic_line(rng, start, end, steps, amplitude):
         bend = a * math.sin(t * math.tau + phase) + b * math.sin(t * 2 * math.tau)
         return (x0 + (x1 - x0) * t + nx * bend, y0 + (y1 - y0) * t + ny * bend)
 
-    return [at(i / steps) for i in range(-1, steps + 2)]
+    # Drawn one step past each edge (the tile's edge cuts it), so a line crossing the edge at an angle keeps
+    # its full width there; the outermost points only steer the tangents.
+    return [at(i / steps) for i in range(-2, steps + 3)]
 
 
 def smooth_guided(points):
