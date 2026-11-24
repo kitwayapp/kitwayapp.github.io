@@ -590,7 +590,7 @@ summary:focus-visible {
    }
 
    /* Each trio fox pops onto its card as the card lands. */
-   .kw-js .kw-trio-card.kw-in img {
+   .kw-js .kw-trio-card.kw-in:not(.kw-in-initial) img {
       animation: kw-pop 0.6s var(--kw-spring) calc(var(--kw-delay, 0s) + 0.15s) both;
    }
 

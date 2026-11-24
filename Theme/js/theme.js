@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const box = element.getBoundingClientRect();
             if (box.top < viewportHeight && box.bottom > 0) {
                element.setAttribute('data-kw-reveal', '');
-               element.classList.add('kw-in');
+               element.classList.add('kw-in', 'kw-in-initial');
                return;
             }
             element.setAttribute('data-kw-reveal', '');
