@@ -30,6 +30,9 @@ jobs:
       - name: Check translations
         run: swift run -c release Site validate
 
+      - name: Check that every linked asset exists (case-sensitive here, as on GitHub Pages)
+        run: scripts/check-assets.sh _Site
+
       - name: Upload the Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
