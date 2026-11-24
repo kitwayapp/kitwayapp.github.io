@@ -419,7 +419,8 @@ summary:focus-visible {
    so the page keeps the screen. */
 @media (max-width: 768px) {
    .sk-site-header {
-      position: static;
+      position: relative;
+      z-index: 50;
    }
 
    .sk-site-nav {
@@ -691,7 +692,8 @@ body.kw-landing {
    position: absolute;
    top: 0;
    left: 0;
-   z-index: 2;
+   /* Under the sections, like the paws: the head shows in the gaps and never covers text. */
+   z-index: 0;
    width: 44px;
    height: 44px;
    margin: -22px 0 0 -22px;
@@ -714,10 +716,17 @@ body.kw-landing {
 .kw-trio-card {
    position: relative;
    counter-increment: kw-stop;
+   /* The numbered pin marks the category now, so the card keeps a plain border. */
+   border-top: 1px solid var(--color-border);
 }
 
+.kw-trio-card > * {
+   position: relative;
+}
+
+/* The pin: a rotated drop in the category colour (::before) with an upright number (::after). */
 .kw-trio-card::before {
-   content: counter(kw-stop);
+   content: "";
    position: absolute;
    top: -18px;
    left: 50%;
@@ -727,23 +736,6 @@ body.kw-landing {
    border-radius: 50% 50% 50% 0;
    transform: rotate(-45deg);
    background: var(--kw-category);
-   color: var(--kw-on-accent);
-   font-weight: 700;
-   line-height: 32px;
-   text-align: center;
-}
-
-.kw-trio-card > * {
-   position: relative;
-}
-
-.kw-trio-card {
-   border-top: 1px solid var(--color-border);
-}
-
-/* The pin's number stands upright inside the rotated pin. */
-.kw-trio-card::before {
-   font-size: 0;
 }
 
 .kw-trio-card::after {

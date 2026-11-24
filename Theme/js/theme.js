@@ -132,20 +132,32 @@ function kitwayRoute() {
    let head = null;
    let pending = false;
 
-   function stopPoint(element, mapBox) {
+   // The box of an element inside the map, from the offset chain: the layout position, without the
+   // reveal and hover transforms that getBoundingClientRect would include.
+   function layoutBox(element) {
+      let left = 0, top = 0, node = element;
+      while (node && node !== map) {
+         left += node.offsetLeft;
+         top += node.offsetTop;
+         node = node.offsetParent;
+      }
+      return { left: left, top: top, width: element.offsetWidth, height: element.offsetHeight };
+   }
+
+   function stopPoint(element) {
       const kind = element.getAttribute('data-kw-stop');
       const target = kind === 'feature' ? (element.querySelector('img') || element) : element;
-      const box = target.getBoundingClientRect();
+      const box = layoutBox(target);
       // `lane`: where the route may run sideways before this stop, the gap just above its card.
-      const lane = element.getBoundingClientRect().top - 20 - mapBox.top;
-      const x = box.left + box.width / 2 - mapBox.left;
+      const lane = layoutBox(element).top - 20;
+      const x = box.left + box.width / 2;
       if (kind === 'start') {
          // On a phone the hero is centred: the route leaves along the screen's edge, clear of the text.
-         const startX = window.innerWidth < 860 ? 14 : box.left + 24 - mapBox.left;
-         return { x: startX, y: box.bottom + 18 - mapBox.top, lane: lane };
+         const startX = window.innerWidth < 860 ? 14 : box.left + 24;
+         return { x: startX, y: box.top + box.height + 18, lane: lane };
       }
-      if (kind === 'feature' || kind === 'finish') return { x: x, y: box.top + box.height / 2 - mapBox.top, lane: lane };
-      return { x: x, y: box.top - mapBox.top, lane: lane };
+      if (kind === 'feature' || kind === 'finish') return { x: x, y: box.top + box.height / 2, lane: lane };
+      return { x: x, y: box.top, lane: lane };
    }
 
    // A smooth curve through the points (Catmull-Rom turned into cubic Béziers).
@@ -173,10 +185,7 @@ function kitwayRoute() {
    }
 
    function build() {
-      const mapBox = map.getBoundingClientRect();
-      const raw = Array.prototype.map.call(map.querySelectorAll('[data-kw-stop]'), function(element) {
-         return stopPoint(element, mapBox);
-      });
+      const raw = Array.prototype.map.call(map.querySelectorAll('[data-kw-stop]'), stopPoint);
       // Between stops in different columns the route turns in the gap just above the next stop's
       // card, so it does not cut across text: down from one stop, across in the gap, into the next.
       const stops = [];
@@ -245,12 +254,21 @@ function kitwayRoute() {
    }
 
    let resizeTimer = 0;
-   window.addEventListener('scroll', schedule, { passive: true });
-   window.addEventListener('resize', function() {
+   let lastWidth = window.innerWidth;
+   function rebuildSoon() {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(build, 150);
+   }
+   window.addEventListener('scroll', schedule, { passive: true });
+   // iOS resizes the height while the address bar slides; only a new width changes the layout.
+   window.addEventListener('resize', function() {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      rebuildSoon();
    });
-   still.addEventListener('change', update);
+   // Opening an FAQ answer moves everything below it, the finish included.
+   map.addEventListener('toggle', rebuildSoon, true);
+   still.addEventListener('change', build);
    // Images and the reveal transforms change the layout: build again once they settle.
    window.addEventListener('load', function() { window.setTimeout(build, 900); });
    build();
