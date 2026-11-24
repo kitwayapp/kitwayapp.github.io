@@ -1,10 +1,15 @@
 import Foundation
 import SiteKit
 
-/// Removes entries for pages that were not written from `sitemap.xml` and `llms.txt`.
+/// Removes pointers to files the build did not write, and the policy's developer notes, from the output.
 ///
-/// With no sections configured, SiteKit 1.0.2 still falls back to a "Blog" section and lists `/blog/` and its feed,
-/// although the landing site has no blog. A search engine or an agent that follows those entries would get a 404.
+/// - With no sections configured, SiteKit 1.0.2 still falls back to a "Blog" section and lists `/blog/` and its
+///   feed in `sitemap.xml` and `llms.txt`, although the landing site has no blog.
+/// - Every page links a search index and lists feeds in an HTML comment, but this site has no search and no feed.
+/// - The privacy policy, copied byte for byte from the Kitway repository, keeps `<!-- Code: … -->` and
+///   `<!-- Decision: … -->` notes for the app's developers; visitors do not need them in the page source.
+///
+/// A search engine or an agent that followed those pointers would get a 404.
 struct IndexesKeepExistingPages: OutputProcessor {
    let baseURL: String
 
@@ -22,9 +27,17 @@ struct IndexesKeepExistingPages: OutputProcessor {
          case "llms.txt":
             try self.rewrite(file) { text in
                text.split(separator: "\n", omittingEmptySubsequences: false).filter { line in
+                  if line.hasPrefix("Locale-specific feeds and indexes at:") { return false }
                   guard let match = line.firstMatch(of: #/^- \[[^\]]*\]\(([^)]*)\)/#) else { return true }
                   return self.exists(String(match.output.1), in: outputDirectory)
                }.joined(separator: "\n")
+            }
+         case let name where name.hasSuffix(".html"):
+            try self.rewrite(file) { html in
+               html
+                  .replacing(#/<link rel="search"[^>]*>/#, with: "")
+                  .replacing(#/<!-- AI: Machine-readable resources available\.[^>]*-->/#, with: "")
+                  .replacing(#/<!--\s*(Code|Decision|Код|Рішення):.*?-->/#.dotMatchesNewlines(), with: "")
             }
          default:
             continue

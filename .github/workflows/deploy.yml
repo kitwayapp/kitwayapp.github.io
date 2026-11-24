@@ -11,7 +11,8 @@ permissions:
 
 concurrency:
   group: pages-${{ github.ref }}
-  cancel-in-progress: true
+  # A running Pages deployment is never cancelled half way.
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -32,13 +33,14 @@ jobs:
         run: swift run -c release Site validate
 
       - name: Upload the Pages artifact
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: _Site
 
   deploy:
-    if: github.event_name != 'pull_request'
+    # Only main publishes, also for a manual run started from another branch.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     permissions:

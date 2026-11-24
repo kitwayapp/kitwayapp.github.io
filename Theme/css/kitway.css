@@ -467,12 +467,16 @@ summary:focus-visible {
 
 .kw-tier-badge,
 .sk-attribution-link,
-.sk-translation-notice-link {
+.sk-translation-notice-link,
+.sk-nav-item a:hover,
+.sk-lang-option:hover {
    color: var(--color-accent-hover);
 }
 
 [data-theme="dark"] .kw-tier-badge,
 [data-theme="dark"] .sk-attribution-link,
-[data-theme="dark"] .sk-translation-notice-link {
+[data-theme="dark"] .sk-translation-notice-link,
+[data-theme="dark"] .sk-nav-item a:hover,
+[data-theme="dark"] .sk-lang-option:hover {
    color: var(--color-accent);
 }

@@ -80,7 +80,7 @@ struct LandingPageRenderer: Renderer {
       let cards = trio.items.map { item in
          """
          <li class="kw-trio-card kw-\(item.category.htmlEscaped)">
-            <img src="\(item.imagePath)" alt="\(item.imageAlt.htmlEscaped)" width="480" height="480" loading="lazy"/>
+            <img src="\(item.imagePath.htmlEscaped)" alt="\(item.imageAlt.htmlEscaped)" width="480" height="480" loading="lazy"/>
             <h3 class="kw-trio-name">\(item.name.htmlEscaped)</h3>
             <p>\(item.description.htmlEscaped)</p>
          </li>
@@ -101,7 +101,7 @@ struct LandingPageRenderer: Renderer {
       let rows = features.items.map { feature in
          """
          <li class="kw-feature">
-            <img src="\(feature.imagePath)" alt="\(feature.imageAlt.htmlEscaped)" width="480" height="480" loading="lazy"/>
+            <img src="\(feature.imagePath.htmlEscaped)" alt="\(feature.imageAlt.htmlEscaped)" width="480" height="480" loading="lazy"/>
             <div>
                <h3>\(feature.title.htmlEscaped)</h3>
                <p>\(feature.description.htmlEscaped)</p>

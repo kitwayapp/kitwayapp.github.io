@@ -7,7 +7,7 @@ struct AppData: Decodable, Sendable {
    let appStoreID: String
 
    var appStoreURL: String? {
-      guard !self.appStoreID.isEmpty, self.appStoreID.allSatisfy(\.isNumber) else { return nil }
+      guard !self.appStoreID.isEmpty, self.appStoreID.allSatisfy({ $0.isASCII && $0.isNumber }) else { return nil }
       return "https://apps.apple.com/app/id\(self.appStoreID)"
    }
 }
