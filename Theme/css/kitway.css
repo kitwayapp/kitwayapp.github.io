@@ -886,7 +886,8 @@ body.kw-landing {
 
 @media (prefers-reduced-motion: no-preference) {
    .kw-js .kw-shot.kw-in .kw-phone {
-      animation: kw-pop 0.7s var(--kw-spring) calc(var(--kw-delay, 0s) + 0.1s) both;
+      /* backwards, not both: a finished pop must not hold the transform, or the hover lift never shows. */
+      animation: kw-pop 0.7s var(--kw-spring) calc(var(--kw-delay, 0s) + 0.1s) backwards;
    }
    .kw-phone {
       transition: transform 0.45s var(--kw-spring);
@@ -913,5 +914,14 @@ body.kw-landing {
    }
    .kw-shot:nth-child(even) {
       margin-top: 0;
+   }
+}
+
+/* Below 480 px the container pads 1 rem: the row reaches the screen edges, not past them. */
+@media (max-width: 480px) {
+   .kw-shot-row {
+      margin: 0 -1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
    }
 }
