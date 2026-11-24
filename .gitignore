@@ -1,0 +1,4 @@
+.build/
+_Site/
+.DS_Store
+.sitekit-cache/

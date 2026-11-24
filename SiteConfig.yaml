@@ -1,0 +1,77 @@
+name: "Kitway"
+baseURL: "https://kitwayapp.github.io"
+description: "Kitway plans your free hours in a city: three places – something to see, something to taste, somewhere to unwind."
+language: "en"
+contentDirectory: "Content"
+outputDirectory: "_Site"
+
+sections: []
+
+navigation:
+  logo:
+    image: "/assets/images/kitway-head.png"
+    imageWidth: 32
+    imageHeight: 32
+    text: "Kitway"
+  items:
+    - title: "How it works"
+      url: "/#how-it-works"
+    - title: "Premium"
+      url: "/#pricing"
+    - title: "Support"
+      url: "/support/"
+  showSearch: false
+  showThemeToggle: true
+
+footer:
+  copyrightName: "Oleksandr Solokha"
+  startYear: 2026
+  showAttribution: true
+  links:
+    - title: "Support"
+      url: "/support/"
+    - title: "Privacy"
+      url: "/privacy/"
+    - title: "Terms"
+      url: "/terms/"
+    - title: "Licenses"
+      url: "/licenses/"
+
+localization:
+  defaultLanguage: "en"
+  languages: ["uk"]
+  translationMode: "manual"
+  legalLanguage: "en"
+  translationNotice:
+    enabled: false
+  localeOverrides:
+    uk:
+      description: "Kitway планує твій вільний час у місті: три місця – щось побачити, щось скуштувати, десь відпочити."
+      navigation:
+        logo:
+          image: "/assets/images/kitway-head.png"
+          imageWidth: 32
+          imageHeight: 32
+          text: "Kitway"
+        items:
+          - title: "Як це працює"
+            url: "/#how-it-works"
+          - title: "Premium"
+            url: "/#pricing"
+          - title: "Підтримка"
+            url: "/support/"
+        showSearch: false
+        showThemeToggle: true
+      footer:
+        copyrightName: "Олександр Солоха"
+        startYear: 2026
+        showAttribution: true
+        links:
+          - title: "Підтримка"
+            url: "/support/"
+          - title: "Приватність"
+            url: "/privacy/"
+          - title: "Умови"
+            url: "/terms/"
+          - title: "Ліцензії"
+            url: "/licenses/"

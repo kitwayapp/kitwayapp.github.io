@@ -1,0 +1,114 @@
+pageTitle: "Kitway – three places for your free time"
+
+hero:
+  eyebrow: "Day planner for iPhone"
+  title: "Three places for your free time"
+  subtitle: "Tell Kitway how many hours you have. It plans a day out in your city or on a trip: something to see, something to taste, somewhere to unwind – with the route between them."
+  imageAlt: "Kitway, a fox with a backpack and binoculars, waves hello"
+  comingSoon: "Coming soon to the App Store"
+  appStoreBadgeAlt: "Download on the App Store"
+
+trio:
+  title: "How it works"
+  subtitle: "Pick the city and the hours. Kitway finds three places that fit the time, the weather and what you like."
+  items:
+    - category: "see"
+      name: "See"
+      description: "A view, a street, a museum or a park – something worth your eyes."
+      imagePath: "/assets/images/fox-scouting.png"
+      imageAlt: "The fox looks through binoculars"
+    - category: "taste"
+      name: "Taste"
+      description: "A café, a bakery or a local dish – something worth a stop."
+      imagePath: "/assets/images/fox-tasting.png"
+      imageAlt: "The fox holds a warm cup"
+    - category: "unwind"
+      name: "Unwind"
+      description: "A bench with a view, a garden or a quiet corner – a place to slow down."
+      imagePath: "/assets/images/fox-chilling.png"
+      imageAlt: "The fox rests on a bench"
+
+features:
+  title: "What Kitway does"
+  items:
+    - title: "A plan for today"
+      description: "Three stops on a map with times and the route between them. Start the day, mark each place, and swap any stop you do not like."
+      imagePath: "/assets/images/fox-compass.png"
+      imageAlt: "The fox checks a compass"
+    - title: "Trips"
+      description: "Going away for a few days? Kitway plans each day of the trip and keeps the days in one place."
+      imagePath: "/assets/images/fox-looking-far.png"
+      imageAlt: "The fox looks far ahead from a rock"
+    - title: "A backpack of stickers"
+      description: "A finished day can earn a sticker. Your backpack shows the cities, the days and the places you visited."
+      imagePath: "/assets/images/fox-sticker-backpack.png"
+      imageAlt: "The fox shows its backpack with stickers"
+    - title: "Memories"
+      description: "A finished day becomes a memory with your notes, moods and photos. Your memories sync through your own iCloud."
+      imagePath: "/assets/images/fox-stamp.png"
+      imageAlt: "The fox stamps a finished day"
+
+screens:
+  title: "Kitway on your iPhone"
+  subtitle: "Pick the hours, get three places, walk the day and keep it in your backpack."
+  items:
+    - id: "today"
+      caption: "Pick your free hours"
+      imageAlt: "Kitway's Today screen: a sun dial for choosing the hours of the day"
+    - id: "plan"
+      caption: "Three places on a map"
+      imageAlt: "A day plan: a map with three stops and a timeline of See, Taste and Unwind"
+    - id: "live"
+      caption: "Walk the day"
+      imageAlt: "A started day: the current stop and the route to the next one"
+    - id: "backpack"
+      caption: "Keep your days"
+      imageAlt: "The backpack: a map of the cities you visited, with stickers and days"
+
+pricing:
+  title: "Free and Premium"
+  subtitle: "Kitway is free to use. Premium removes the limits."
+  note: "Prices are shown in the App Store in your currency. Payment is charged to your Apple Account. You can manage or cancel a subscription in your iPhone Settings."
+  tiers:
+    - name: "Kitway Free"
+      summary: "Everything you need for a day out."
+      features:
+        - "3 day plans a month"
+        - "3 swaps in each plan"
+        - "The first day of a trip"
+        - "Live day, stickers and memories"
+    - name: "Kitway Premium"
+      badge: "7 days free"
+      summary: "Yearly or monthly subscription. The yearly plan starts with 7 free days."
+      highlighted: true
+      features:
+        - "No monthly plan limit"
+        - "Swap any stop, with no limit"
+        - "Plan every day of a trip"
+        - "Voice notes about places"
+    - name: "Trip Pass"
+      summary: "Premium for 7 days. You pay once, and it does not renew."
+      features:
+        - "Everything in Premium for one trip"
+        - "No subscription"
+
+faq:
+  title: "Questions"
+  items:
+    - question: "Do I need an account?"
+      answer: "No. Kitway does not ask for your name, email or phone number. The app signs in anonymously."
+    - question: "Where are my plans and memories?"
+      answer: "On your iPhone. Memories also sync through your private iCloud. Kitway has no server of its own and does not see them."
+    - question: "Does Kitway track my location?"
+      answer: "No. Kitway uses your position only to find the city you are in, to show the weather and to time the day. It does not store your position. You can also pick a city by hand."
+    - question: "What does the Trip Pass give me?"
+      answer: "Premium for 7 days with one payment and no renewal. It suits a single trip."
+    - question: "Which languages does Kitway speak?"
+      answer: "English, Ukrainian, German, Spanish, French, Italian, Polish and Brazilian Portuguese."
+    - question: "Which iPhone do I need?"
+      answer: "An iPhone with iOS 26 or later."
+
+cta:
+  title: "Your next free hours are waiting"
+  subtitle: "Kitway turns them into a small trip."
+  buttonText: "Get Kitway"

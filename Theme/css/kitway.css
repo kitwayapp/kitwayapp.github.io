@@ -1,0 +1,927 @@
+/* Kitway landing: the app's palette (DesignSystem Tokens.xcassets) on top of SiteKit's theme tokens.
+   Category colours: See, Taste, Unwind – light and dark values as in the app, AA on their backgrounds. */
+:root {
+   --kw-see: #1E5D55;
+   --kw-taste: #9D291F;
+   --kw-unwind: #5F3EAD;
+   --kw-see-soft: #E3F0EE;
+   --kw-taste-soft: #F8E4E1;
+   --kw-unwind-soft: #ECE6F7;
+   --kw-highlight: #F5A83B;
+   --kw-on-accent: #FFFFFF;
+   --kw-hero-glow: #F6D3A8;
+}
+
+[data-theme="dark"] {
+   --kw-see: #68BFB4;
+   --kw-taste: #F3988F;
+   --kw-unwind: #B9A7E9;
+   --kw-see-soft: #1F2F2D;
+   --kw-taste-soft: #35211F;
+   --kw-unwind-soft: #2A2438;
+   --kw-highlight: #F7B657;
+   --kw-on-accent: #2A1E17;
+   --kw-hero-glow: #4F3A2E;
+}
+
+body {
+   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+h1, h2, h3, .landing-section-title, .kw-hero-title {
+   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+   outline: 3px solid var(--color-accent);
+   outline-offset: 3px;
+   border-radius: 6px;
+}
+
+.sk-site-header {
+   background: rgba(251, 246, 239, 0.92);
+}
+
+[data-theme="dark"] .sk-site-header {
+   background: rgba(29, 26, 23, 0.92);
+}
+
+.sk-site-logo img {
+   border-radius: 8px;
+}
+
+/* ---------- Sections ---------- */
+
+.kw-section {
+   padding: 4.5rem 0;
+}
+
+.kw-section-subtitle {
+   max-width: 640px;
+   margin: -1.5rem auto 2.5rem;
+   text-align: center;
+   color: var(--color-text-secondary);
+   font-size: 1.1rem;
+   line-height: 1.6;
+}
+
+/* ---------- Hero ---------- */
+
+.kw-hero {
+   position: relative;
+   padding: 3.5rem 0 2rem;
+}
+
+.kw-hero-inner {
+   position: relative;
+}
+
+.kw-hero-inner {
+   display: grid;
+   grid-template-columns: 1.1fr 0.9fr;
+   align-items: center;
+   gap: 2rem;
+}
+
+.kw-eyebrow {
+   margin: 0 0 0.75rem;
+   color: var(--color-accent-hover);
+   font-weight: 600;
+   font-size: 0.95rem;
+   letter-spacing: 0.02em;
+}
+
+.kw-hero-title {
+   margin: 0 0 1rem;
+   font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+   font-weight: 800;
+   line-height: 1.08;
+   letter-spacing: -0.025em;
+   color: var(--color-text);
+}
+
+.kw-hero-subtitle {
+   margin: 0 0 2rem;
+   max-width: 34rem;
+   font-size: clamp(1.05rem, 2vw, 1.25rem);
+   line-height: 1.6;
+   color: var(--color-text-secondary);
+}
+
+.kw-hero-fox {
+   width: 100%;
+   max-width: 460px;
+   height: auto;
+   justify-self: center;
+}
+
+.kw-hero-actions {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 1rem;
+   align-items: center;
+}
+
+.kw-cta .kw-hero-actions {
+   justify-content: center;
+}
+
+.kw-store-button {
+   display: inline-flex;
+   align-items: center;
+   min-height: 48px;
+   padding: 0 1.5rem;
+   border-radius: 999px;
+   background: var(--color-accent);
+   color: var(--kw-on-accent);
+   font-weight: 600;
+   text-decoration: none;
+}
+
+.kw-store-button:hover {
+   background: var(--color-accent-hover);
+   color: var(--kw-on-accent);
+}
+
+.kw-coming-soon {
+   display: inline-flex;
+   align-items: center;
+   min-height: 44px;
+   margin: 0;
+   padding: 0 1.25rem;
+   border-radius: 999px;
+   border: 1px solid var(--color-border);
+   background: var(--color-bg-card);
+   color: var(--color-text);
+   font-weight: 600;
+}
+
+/* ---------- Trio ---------- */
+
+.kw-trio {
+   background: transparent;
+}
+
+.kw-trio-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1.5rem;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.kw-trio-card {
+   --kw-category: var(--kw-see);
+   --kw-category-soft: var(--kw-see-soft);
+   padding: 1.5rem;
+   border-radius: var(--radius-lg);
+   background: var(--color-bg-card);
+   border-top: 6px solid var(--kw-category);
+   box-shadow: 0 6px 20px var(--color-shadow);
+   text-align: center;
+}
+
+.kw-trio-card.kw-taste {
+   --kw-category: var(--kw-taste);
+   --kw-category-soft: var(--kw-taste-soft);
+}
+
+.kw-trio-card.kw-unwind {
+   --kw-category: var(--kw-unwind);
+   --kw-category-soft: var(--kw-unwind-soft);
+}
+
+.kw-trio-card img {
+   width: 70%;
+   max-width: 220px;
+   height: auto;
+   border-radius: 50%;
+   background: var(--kw-category-soft);
+}
+
+.kw-trio-name {
+   display: inline-block;
+   margin: 1rem 0 0.5rem;
+   padding: 0.2rem 0.9rem;
+   border-radius: 999px;
+   background: var(--kw-category-soft);
+   color: var(--kw-category);
+   font-size: 1.15rem;
+   font-weight: 700;
+}
+
+.kw-trio-card p {
+   margin: 0;
+   color: var(--color-text-secondary);
+   line-height: 1.6;
+}
+
+/* ---------- Features ---------- */
+
+.kw-feature-list {
+   display: grid;
+   gap: 2rem;
+   max-width: 900px;
+   margin: 0 auto;
+   padding: 0;
+   list-style: none;
+}
+
+.kw-feature {
+   display: grid;
+   grid-template-columns: 180px 1fr;
+   gap: 2rem;
+   align-items: center;
+}
+
+.kw-feature:nth-child(odd) {
+   grid-template-columns: 1fr 180px;
+}
+
+.kw-feature:nth-child(odd) img {
+   order: 2;
+}
+
+.kw-feature img {
+   width: 180px;
+   height: 180px;
+   border-radius: 50%;
+   background: var(--color-bg-alt);
+}
+
+.kw-feature h3 {
+   margin: 0 0 0.5rem;
+   font-size: 1.35rem;
+   color: var(--color-text);
+}
+
+.kw-feature p {
+   margin: 0;
+   color: var(--color-text-secondary);
+   line-height: 1.65;
+}
+
+/* ---------- Pricing ---------- */
+
+.kw-pricing {
+   background: transparent;
+}
+
+.kw-tier-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1.5rem;
+   align-items: stretch;
+}
+
+.kw-tier {
+   padding: 1.75rem;
+   border-radius: var(--radius-lg);
+   background: var(--color-bg-card);
+   border: 1px solid var(--color-border);
+}
+
+.kw-tier-highlighted {
+   border: 2px solid var(--color-accent);
+   box-shadow: 0 10px 30px var(--color-shadow-lg);
+}
+
+.kw-tier-header {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   justify-content: space-between;
+   gap: 0.5rem;
+}
+
+.kw-tier-header h3 {
+   margin: 0;
+   font-size: 1.25rem;
+   color: var(--color-text);
+}
+
+.kw-tier-badge {
+   padding: 0.2rem 0.7rem;
+   border-radius: 999px;
+   background: var(--color-accent-light);
+   color: var(--color-accent);
+   font-size: 0.85rem;
+   font-weight: 600;
+}
+
+.kw-tier-summary {
+   margin: 0.75rem 0 1rem;
+   color: var(--color-text-secondary);
+   line-height: 1.55;
+}
+
+.kw-tier ul {
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.kw-tier li {
+   position: relative;
+   padding: 0.4rem 0 0.4rem 1.6rem;
+   color: var(--color-text);
+   line-height: 1.5;
+}
+
+.kw-tier li::before {
+   content: "";
+   position: absolute;
+   left: 0.2rem;
+   top: 0.85rem;
+   width: 0.55rem;
+   height: 0.55rem;
+   border-radius: 50%;
+   background: var(--color-accent);
+}
+
+.kw-pricing-note {
+   max-width: 640px;
+   margin: 2rem auto 0;
+   text-align: center;
+   color: var(--color-text-secondary);
+   font-size: 0.95rem;
+   line-height: 1.6;
+}
+
+/* ---------- Call to action ---------- */
+
+.kw-cta {
+   text-align: center;
+}
+
+/* ---------- Static pages (privacy, licenses) ---------- */
+
+.sk-static-page pre {
+   max-height: 28rem;
+   overflow: auto;
+   white-space: pre-wrap;
+   font-size: 0.8rem;
+}
+
+.sk-static-page table {
+   display: block;
+   overflow-x: auto;
+}
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 860px) {
+   .kw-hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+   }
+
+   .kw-hero-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+   }
+
+   .kw-hero-actions {
+      justify-content: center;
+   }
+
+   .kw-hero-fox {
+      max-width: 300px;
+      grid-row: 1;
+   }
+
+   .kw-trio-grid,
+   .kw-tier-grid {
+      grid-template-columns: 1fr;
+   }
+
+   .kw-feature,
+   .kw-feature:nth-child(odd) {
+      grid-template-columns: 1fr;
+      text-align: center;
+      justify-items: center;
+   }
+
+   .kw-feature:nth-child(odd) img {
+      order: 0;
+   }
+
+   .kw-feature img {
+      width: 150px;
+      height: 150px;
+   }
+}
+
+/* Phone header: logo, language and theme on one row, the links on a second row; not sticky,
+   so the page keeps the screen. */
+@media (max-width: 768px) {
+   .sk-site-header {
+      position: relative;
+      z-index: 50;
+   }
+
+   .sk-site-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+   }
+
+   .sk-site-logo {
+      margin-right: auto;
+   }
+
+   .sk-lang-picker {
+      order: 1;
+   }
+
+   .sk-theme-toggle {
+      order: 2;
+   }
+
+   .sk-nav-list {
+      order: 3;
+      flex: 0 0 100%;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+   }
+
+   .sk-lang-btn,
+   .sk-theme-toggle {
+      min-height: 44px;
+      min-width: 44px;
+   }
+}
+
+/* Contrast fixes (WCAG AA 4.5:1) for SiteKit chrome on the Kitway palette. */
+.sk-skip-link {
+   color: var(--kw-on-accent);
+}
+
+.sk-error-action a,
+.sk-error-action a:hover {
+   color: var(--kw-on-accent);
+}
+
+.kw-tier-badge,
+.sk-attribution-link,
+.sk-translation-notice-link,
+.sk-nav-item a:hover,
+.sk-lang-option:hover {
+   color: var(--color-accent-hover);
+}
+
+[data-theme="dark"] .kw-eyebrow,
+[data-theme="dark"] .kw-tier-badge,
+[data-theme="dark"] .sk-attribution-link,
+[data-theme="dark"] .sk-translation-notice-link,
+[data-theme="dark"] .sk-nav-item a:hover,
+[data-theme="dark"] .sk-lang-option:hover {
+   color: var(--color-accent);
+}
+
+
+/* ============================================================
+   Motion
+   Web version of Skills/Motion/motion-rules: motion shows a change, only transform and opacity move,
+   springs for movement, plain fades for opacity, and every animation has a Reduce Motion behaviour.
+   Everything is visible without JavaScript: the hidden starting states apply only under .kw-js.
+   ============================================================ */
+:root {
+   /* A spring with a small overshoot, like SwiftUI .smooth / .bouncy. */
+   --kw-spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+   --kw-spring-soft: cubic-bezier(0.25, 1, 0.5, 1);
+   --kw-rise: 0.7s;
+   --kw-fade: 0.45s;
+   --kw-step: 0.08s;
+}
+
+@keyframes kw-rise {
+   from { opacity: 0; transform: translateY(18px); }
+   to { opacity: 1; transform: none; }
+}
+
+@keyframes kw-fox-arrive {
+   from { opacity: 0; transform: translateY(28px) scale(0.92); }
+   to { opacity: 1; transform: none; }
+}
+
+/* The fox is always alive: a slow breath, the body stretching up a little from its feet. */
+@keyframes kw-breathe {
+   0%, 100% { transform: scale(1, 1); }
+   50% { transform: scale(1.012, 1.028); }
+}
+
+@keyframes kw-pop {
+   0% { transform: scale(0.82); }
+   100% { transform: scale(1); }
+}
+
+@keyframes kw-fade-down {
+   from { opacity: 0; transform: translateY(-6px); }
+   to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+   /* Off screen the hero's animations pause; theme.js sets .kw-hero-away. */
+   .kw-js .kw-hero-away .kw-hero-fox,
+   .kw-hero-away .kw-hero-fox {
+      animation-play-state: paused;
+   }
+
+   /* Arrival: the hero builds itself top to bottom, then the fox comes in and starts breathing. */
+   .kw-js .kw-hero-text > * {
+      opacity: 0;
+      animation: kw-rise var(--kw-rise) var(--kw-spring-soft) forwards;
+   }
+   .kw-js .kw-hero-text > :nth-child(1) { animation-delay: 0.05s; }
+   .kw-js .kw-hero-text > :nth-child(2) { animation-delay: 0.13s; }
+   .kw-js .kw-hero-text > :nth-child(3) { animation-delay: 0.21s; }
+   .kw-js .kw-hero-text > :nth-child(4) { animation-delay: 0.29s; }
+
+   .kw-js .kw-hero-fox {
+      opacity: 0;
+      transform-origin: 50% 92%;
+      animation:
+         kw-fox-arrive 0.8s var(--kw-spring) 0.2s forwards,
+         kw-breathe 3.6s ease-in-out 1.1s infinite;
+   }
+   .kw-hero-fox {
+      transform-origin: 50% 92%;
+      animation: kw-breathe 3.6s ease-in-out infinite;
+   }
+
+   /* Scroll reveal: theme.js marks the pieces and adds .kw-in when they enter the screen. */
+   .kw-js [data-kw-reveal] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition:
+         opacity var(--kw-fade) ease-out var(--kw-delay, 0s),
+         transform var(--kw-rise) var(--kw-spring) var(--kw-delay, 0s);
+   }
+   .kw-js [data-kw-reveal].kw-in {
+      opacity: 1;
+      transform: none;
+   }
+
+   /* Each trio fox pops onto its card as the card lands. */
+   .kw-js .kw-trio-card.kw-in:not(.kw-in-initial) img {
+      animation: kw-pop 0.6s var(--kw-spring) calc(var(--kw-delay, 0s) + 0.15s) both;
+   }
+
+   /* Hover: a small lift on a spring, transform only. */
+   .kw-trio-card,
+   .kw-tier,
+   .kw-feature img,
+   .kw-store-button {
+      transition: transform 0.45s var(--kw-spring);
+   }
+   .kw-js [data-kw-reveal].kw-trio-card,
+   .kw-js [data-kw-reveal].kw-tier {
+      transition:
+         opacity var(--kw-fade) ease-out var(--kw-delay, 0s),
+         transform var(--kw-rise) var(--kw-spring) var(--kw-delay, 0s);
+   }
+   .kw-trio-card:hover,
+   .kw-tier:hover,
+   .kw-js [data-kw-reveal].kw-in.kw-trio-card:hover,
+   .kw-js [data-kw-reveal].kw-in.kw-tier:hover {
+      transform: translateY(-6px);
+      transition-delay: 0s;
+   }
+   .kw-feature:hover img {
+      transform: translateY(-6px) rotate(-3deg);
+   }
+   .kw-store-button:hover {
+      transform: scale(1.04);
+   }
+
+   /* FAQ: the answer comes in under its question. */
+   .landing-faq-item[open] p {
+      animation: kw-fade-down 0.35s ease-out;
+   }
+}
+
+/* Print: everything visible and still, whatever was scrolled. */
+@media print {
+   .kw-js [data-kw-reveal],
+   .kw-js .kw-hero-text > *,
+   .kw-hero-fox,
+   .kw-route-head {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+   }
+}
+
+/* Reduce Motion: no movement. The fox stands still, pieces are visible at once (a plain fade at most). */
+@media (prefers-reduced-motion: reduce) {
+   .kw-js [data-kw-reveal] {
+      opacity: 1;
+      transform: none;
+   }
+}
+
+
+/* ============================================================
+   Map and paw trail (style C)
+   The page is an illustrated travel map in the fox's diorama style. A route runs
+   through the stops: the fox in the hero, See, Taste, Unwind, the features, the plans, the finish.
+   theme.js draws the paw prints along it as the page scrolls; the fox's head walks with them.
+   ============================================================ */
+:root {
+   --kw-map-tile: url("/assets/theme/images/map-light.webp");
+   --kw-route-line: #D9CDBB;
+   --kw-paw: #C34A1F;
+}
+
+[data-theme="dark"] {
+   --kw-map-tile: url("/assets/theme/images/map-dark.webp");
+   --kw-route-line: #3F3832;
+   --kw-paw: #EE7A4F;
+}
+
+body.kw-landing {
+   background-color: var(--color-bg);
+}
+
+.kw-map {
+   position: relative;
+   /* One illustrated travel map, a 1600 x 2400 tile at 2x, drawn by the art agent in the fox's diorama
+      style (prompts on the task card). It repeats without a seam. In the day map the middle half stays at
+      luminance >= 0.75 for bare text; the side quarters carry soft shadows down to 0.62, so text that sits
+      there (the hero) has its own backing. */
+   background-image: var(--kw-map-tile);
+   background-size: 1600px 2400px;
+   background-position: center top;
+}
+
+.kw-map > section {
+   position: relative;
+   z-index: 1;
+}
+
+.kw-route {
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 0;
+   overflow: visible;
+   pointer-events: none;
+}
+
+.kw-route-guide {
+   fill: none;
+   stroke: var(--kw-route-line);
+   stroke-width: 3;
+   stroke-linecap: round;
+   stroke-dasharray: 1 10;
+}
+
+.kw-paw {
+   fill: var(--kw-paw);
+   opacity: 0;
+}
+
+.kw-paw.kw-on {
+   opacity: 0.85;
+}
+
+.kw-route-head {
+   position: absolute;
+   top: 0;
+   left: 0;
+   /* Under the sections, like the paws: the head shows in the gaps and never covers text. */
+   z-index: 0;
+   width: 44px;
+   height: 44px;
+   margin: -22px 0 0 -22px;
+   border-radius: 50%;
+   background: var(--color-bg-card);
+   box-shadow: 0 2px 8px var(--color-shadow-lg);
+   pointer-events: none;
+   opacity: 0;
+}
+
+.kw-route-head.kw-on {
+   opacity: 1;
+}
+
+/* Stop pins: a numbered pin on each trio card, a pin under the finish button. */
+.kw-trio-grid {
+   counter-reset: kw-stop;
+}
+
+.kw-trio-card {
+   position: relative;
+   counter-increment: kw-stop;
+   /* The numbered pin marks the category now, so the card keeps a plain border. */
+   border-top: 1px solid var(--color-border);
+}
+
+.kw-trio-card > * {
+   position: relative;
+}
+
+/* The pin: a rotated drop in the category colour (::before) with an upright number (::after). */
+.kw-trio-card::before {
+   content: "";
+   position: absolute;
+   top: -18px;
+   left: 50%;
+   width: 32px;
+   height: 32px;
+   margin-left: -16px;
+   border-radius: 50% 50% 50% 0;
+   transform: rotate(-45deg);
+   background: var(--kw-category);
+}
+
+.kw-trio-card::after {
+   content: counter(kw-stop);
+   position: absolute;
+   top: -18px;
+   left: 50%;
+   width: 32px;
+   margin-left: -16px;
+   color: var(--kw-on-accent);
+   font-weight: 700;
+   line-height: 32px;
+   text-align: center;
+}
+
+.kw-section-subtitle,
+.kw-pricing-note,
+.landing-section-title,
+.kw-eyebrow,
+.kw-hero-title,
+.kw-hero-subtitle {
+   text-shadow: 0 0 6px var(--color-bg), 0 0 12px var(--color-bg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+   .kw-paw {
+      transition: opacity 0.25s ease-out;
+   }
+   .kw-route-head {
+      transition: transform 0.35s var(--kw-spring-soft), opacity 0.25s ease-out;
+   }
+}
+
+@media print {
+   .kw-route,
+   .kw-route-head {
+      display: none !important;
+   }
+}
+
+/* Text that would sit on the map's streets gets a card under it. */
+.kw-feature {
+   padding: 1.25rem;
+   border-radius: var(--radius-lg);
+   background: var(--color-bg-card);
+   border: 1px solid var(--color-border);
+}
+
+.landing-faq-item {
+   padding: 0 1.25rem;
+   margin-bottom: 0.5rem;
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius);
+   background: var(--color-bg-card);
+}
+
+/* The hero text sits on the map's left quarter, where the day map has soft shadows: a light paper backing
+   keeps its text at AA on any map, like a label on a map. */
+.kw-hero-text {
+   padding: 1.5rem;
+   /* As far left as the container's own 1.5 rem padding, so the backing never leaves the screen. */
+   margin-left: -1.5rem;
+   border-radius: var(--radius-lg);
+   background: rgba(251, 246, 239, 0.9);
+   -webkit-backdrop-filter: blur(6px);
+   backdrop-filter: blur(6px);
+}
+
+[data-theme="dark"] .kw-hero-text {
+   background: rgba(29, 26, 23, 0.86);
+}
+
+@media (max-width: 860px) {
+   .kw-hero-text {
+      margin-left: 0;
+      padding: 1.25rem;
+   }
+}
+
+/* ---------- The app on phones ----------
+   A plain phone outline drawn in CSS (no Apple artwork). The light or the dark capture shows with the site's
+   theme; the hidden one is not loaded (loading="lazy" on a display:none image). */
+.kw-shot-row {
+   display: grid;
+   grid-template-columns: repeat(4, minmax(0, 1fr));
+   gap: 1.5rem;
+   max-width: 1000px;
+   margin: 0 auto;
+   padding: 0;
+   list-style: none;
+}
+
+.kw-shot {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.kw-shot:nth-child(even) {
+   margin-top: 2.5rem;
+}
+
+.kw-phone {
+   position: relative;
+   width: 100%;
+   max-width: 220px;
+   aspect-ratio: 390 / 844;
+   padding: 7px;
+   border-radius: 34px;
+   background: #1A1715;
+   box-shadow: 0 18px 40px var(--color-shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+.kw-phone img {
+   display: block;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   border-radius: 27px;
+   background: var(--color-bg-card);
+}
+
+.kw-shot-dark,
+[data-theme="dark"] .kw-shot-light {
+   display: none !important;
+}
+
+[data-theme="dark"] .kw-shot-dark {
+   display: block !important;
+}
+
+.kw-shot-caption {
+   margin: 1rem 0 0;
+   padding: 0.3rem 0.8rem;
+   border-radius: 999px;
+   background: var(--color-bg-card);
+   border: 1px solid var(--color-border);
+   color: var(--color-text);
+   font-weight: 600;
+   font-size: 0.95rem;
+   text-align: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+   .kw-js .kw-shot.kw-in .kw-phone {
+      /* backwards, not both: a finished pop must not hold the transform, or the hover lift never shows. */
+      animation: kw-pop 0.7s var(--kw-spring) calc(var(--kw-delay, 0s) + 0.1s) backwards;
+   }
+   .kw-phone {
+      transition: transform 0.45s var(--kw-spring);
+   }
+   .kw-shot:hover .kw-phone {
+      transform: translateY(-6px);
+   }
+}
+
+/* Phones: a row that scrolls sideways, one phone and a bit of the next on screen. */
+@media (max-width: 860px) {
+   .kw-shot-row {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 0.5rem 1.5rem 1.5rem;
+      margin: 0 -1.5rem;
+      -webkit-overflow-scrolling: touch;
+   }
+   .kw-shot {
+      flex: 0 0 62%;
+      scroll-snap-align: center;
+   }
+   .kw-shot:nth-child(even) {
+      margin-top: 0;
+   }
+}
+
+/* Below 480 px the container pads 1 rem: the row reaches the screen edges, not past them. */
+@media (max-width: 480px) {
+   .kw-shot-row {
+      margin: 0 -1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+   }
+}
