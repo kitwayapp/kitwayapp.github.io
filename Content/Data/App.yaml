@@ -1,0 +1,3 @@
+# The numeric App Store id from App Store Connect. Leave it empty until the app has one:
+# while it is empty the site shows "Coming soon" instead of the App Store button and no Smart App Banner.
+appStoreID: ""
