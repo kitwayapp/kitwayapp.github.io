@@ -54,6 +54,37 @@ def wobbly_line(rng, start, end, steps, amplitude):
     return points
 
 
+def periodic_line(rng, start, end, steps, amplitude):
+    """A line from one tile edge to the opposite one that continues seamlessly into the next tile.
+
+    The sideways bend is periodic (zero offset and the same slope at both ends), and one extra point beyond
+    each end, taken from the next tile, guides the curve's end tangents, so the tile meets itself without a
+    step or a kink. Returns the points with those two guides first and last.
+    """
+    (x0, y0), (x1, y1) = start, end
+    length = math.hypot(x1 - x0, y1 - y0)
+    nx, ny = -(y1 - y0) / length, (x1 - x0) / length
+    a, b = amplitude, amplitude * rng.uniform(-0.45, 0.45)
+    phase = rng.choice([0, math.pi])
+
+    def at(t):
+        bend = a * math.sin(t * math.tau + phase) + b * math.sin(t * 2 * math.tau)
+        return (x0 + (x1 - x0) * t + nx * bend, y0 + (y1 - y0) * t + ny * bend)
+
+    return [at(i / steps) for i in range(-1, steps + 2)]
+
+
+def smooth_guided(points):
+    """A Catmull-Rom curve through points[1:-1]; the first and last points only steer the end tangents."""
+    d = f"M{points[1][0]:.1f} {points[1][1]:.1f}"
+    for i in range(1, len(points) - 2):
+        p0, p1, p2, p3 = points[i - 1], points[i], points[i + 1], points[i + 2]
+        c1 = (p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6)
+        c2 = (p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6)
+        d += f" C{c1[0]:.1f} {c1[1]:.1f} {c2[0]:.1f} {c2[1]:.1f} {p2[0]:.1f} {p2[1]:.1f}"
+    return d
+
+
 def blob(rng, cx, cy, r, lumps=9):
     points = []
     for i in range(lumps):
@@ -69,8 +100,8 @@ def draw(seed):
 
     # The river enters at the top and leaves at the bottom at the same x, so the tile has no seam.
     river_x = 1060
-    river = wobbly_line(rng, (river_x, -40), (river_x, H + 40), 10, 260)
-    river_d = smooth(river)
+    river = periodic_line(rng, (river_x, 0), (river_x, H), 10, 200)
+    river_d = smooth_guided(river)
 
     def near_river(x, y, distance):
         return any(math.hypot(x - rx_, y - ry_) < distance for rx_, ry_ in river_samples)
@@ -125,14 +156,14 @@ def draw(seed):
     avenues = []
     for y in (180, 720, 1300, 1880):
         y += rng.uniform(-40, 40)
-        avenues.append(wobbly_line(rng, (-40, y), (W + 40, y), 8, rng.uniform(60, 140)))
+        avenues.append((periodic_line(rng, (0, y), (W, y), 8, rng.uniform(50, 110)), True))
     for x in (260, 620, 1380):
         x += rng.uniform(-30, 30)
-        avenues.append(wobbly_line(rng, (x, -40), (x, H + 40), 10, rng.uniform(70, 160)))
-    # A diagonal boulevard across the middle.
-    avenues.append(wobbly_line(rng, (120, 520), (1500, 2060), 8, 90))
-    for line in avenues:
-        d = smooth(line)
+        avenues.append((periodic_line(rng, (x, 0), (x, H), 10, rng.uniform(60, 130)), True))
+    # A diagonal boulevard across the middle: it stays inside the tile.
+    avenues.append((wobbly_line(rng, (120, 520), (1500, 2060), 8, 90), False))
+    for line, guided in avenues:
+        d = smooth_guided(line) if guided else smooth(line)
         parts["avenues"].append(f'<path d="{d}" class="casing"/><path d="{d}" class="avenue"/>')
 
     # Squares on the avenues, never on the river.
@@ -140,7 +171,7 @@ def draw(seed):
     for _ in range(200):
         if placed == 7:
             break
-        line = rng.choice(avenues)
+        line = rng.choice(avenues)[0]
         x, y = line[rng.randrange(2, len(line) - 2)]
         if near_river(x, y, 110) or not (40 < x < W - 40 and 40 < y < H - 40):
             continue
