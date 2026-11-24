@@ -71,18 +71,7 @@ summary:focus-visible {
 
 .kw-hero {
    position: relative;
-   overflow: hidden;
    padding: 3.5rem 0 2rem;
-   background: var(--color-bg);
-}
-
-/* The warm glow behind the fox: its own layer, so it can drift with transform only. */
-.kw-hero::before {
-   content: "";
-   position: absolute;
-   inset: -20% -10% -20% 30%;
-   background: radial-gradient(50% 55% at 60% 50%, var(--kw-hero-glow) 0%, transparent 70%);
-   pointer-events: none;
 }
 
 .kw-hero-inner {
@@ -98,7 +87,7 @@ summary:focus-visible {
 
 .kw-eyebrow {
    margin: 0 0 0.75rem;
-   color: var(--color-accent);
+   color: var(--color-accent-hover);
    font-weight: 600;
    font-size: 0.95rem;
    letter-spacing: 0.02em;
@@ -172,7 +161,7 @@ summary:focus-visible {
 /* ---------- Trio ---------- */
 
 .kw-trio {
-   background: var(--color-bg-alt);
+   background: transparent;
 }
 
 .kw-trio-grid {
@@ -248,11 +237,11 @@ summary:focus-visible {
    align-items: center;
 }
 
-.kw-feature:nth-child(even) {
+.kw-feature:nth-child(odd) {
    grid-template-columns: 1fr 180px;
 }
 
-.kw-feature:nth-child(even) img {
+.kw-feature:nth-child(odd) img {
    order: 2;
 }
 
@@ -278,7 +267,7 @@ summary:focus-visible {
 /* ---------- Pricing ---------- */
 
 .kw-pricing {
-   background: var(--color-bg-alt);
+   background: transparent;
 }
 
 .kw-tier-grid {
@@ -410,13 +399,13 @@ summary:focus-visible {
    }
 
    .kw-feature,
-   .kw-feature:nth-child(even) {
+   .kw-feature:nth-child(odd) {
       grid-template-columns: 1fr;
       text-align: center;
       justify-items: center;
    }
 
-   .kw-feature:nth-child(even) img {
+   .kw-feature:nth-child(odd) img {
       order: 0;
    }
 
@@ -486,6 +475,7 @@ summary:focus-visible {
    color: var(--color-accent-hover);
 }
 
+[data-theme="dark"] .kw-eyebrow,
 [data-theme="dark"] .kw-tier-badge,
 [data-theme="dark"] .sk-attribution-link,
 [data-theme="dark"] .sk-translation-notice-link,
@@ -526,11 +516,6 @@ summary:focus-visible {
    50% { transform: scale(1.012, 1.028); }
 }
 
-@keyframes kw-glow-drift {
-   from { transform: translate(0, 0) scale(1); }
-   to { transform: translate(-4%, 3%) scale(1.08); }
-}
-
 @keyframes kw-pop {
    0% { transform: scale(0.82); }
    100% { transform: scale(1); }
@@ -542,13 +527,7 @@ summary:focus-visible {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-   /* The glow drifts for a minute after arrival, then rests (WCAG 2.2.2: no endless decoration). */
-   .kw-hero::before {
-      animation: kw-glow-drift 14s ease-in-out 4 alternate;
-   }
-
    /* Off screen the hero's animations pause; theme.js sets .kw-hero-away. */
-   .kw-hero.kw-hero-away::before,
    .kw-js .kw-hero-away .kw-hero-fox,
    .kw-hero-away .kw-hero-fox {
       animation-play-state: paused;
@@ -632,7 +611,7 @@ summary:focus-visible {
    .kw-js [data-kw-reveal],
    .kw-js .kw-hero-text > *,
    .kw-hero-fox,
-   .kw-hero::before {
+   .kw-route-head {
       opacity: 1 !important;
       transform: none !important;
       animation: none !important;
@@ -646,4 +625,177 @@ summary:focus-visible {
       opacity: 1;
       transform: none;
    }
+}
+
+
+/* ============================================================
+   Map and paw trail (style C)
+   The page is a light city map in the app's scene colours, lightened so text keeps AA. A route runs
+   through the stops: the fox in the hero, See, Taste, Unwind, the features, the plans, the finish.
+   theme.js draws the paw prints along it as the page scrolls; the fox's head walks with them.
+   ============================================================ */
+:root {
+   --kw-map-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Crect width='360' height='360' fill='%23F5F0E8'/%3E%3Cg fill='%23EFE8DD'%3E%3Crect x='22' y='22' width='122' height='120' rx='14'/%3E%3Crect x='196' y='22' width='108' height='120' rx='14'/%3E%3Crect x='22' y='196' width='122' height='104' rx='14'/%3E%3Crect x='196' y='196' width='108' height='104' rx='14'/%3E%3C/g%3E%3Cg fill='none' stroke='%23FAF6EF' stroke-width='16' stroke-linecap='round'%3E%3Cpath d='M0 170 C120 158 240 182 360 170'/%3E%3Cpath d='M170 0 C158 120 182 240 170 360'/%3E%3C/g%3E%3Cg fill='none' stroke='%23EEE7DC' stroke-width='2'%3E%3Cpath d='M0 330 H360'/%3E%3Cpath d='M330 0 V360'/%3E%3C/g%3E%3C/svg%3E");
+   --kw-route-line: #D9CDBB;
+   --kw-paw: #C34A1F;
+}
+
+[data-theme="dark"] {
+   --kw-map-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Crect width='360' height='360' fill='%23201C19'/%3E%3Cg fill='%2324201C'%3E%3Crect x='22' y='22' width='122' height='120' rx='14'/%3E%3Crect x='196' y='22' width='108' height='120' rx='14'/%3E%3Crect x='22' y='196' width='122' height='104' rx='14'/%3E%3Crect x='196' y='196' width='108' height='104' rx='14'/%3E%3C/g%3E%3Cg fill='none' stroke='%23292420' stroke-width='16' stroke-linecap='round'%3E%3Cpath d='M0 170 C120 158 240 182 360 170'/%3E%3Cpath d='M170 0 C158 120 182 240 170 360'/%3E%3C/g%3E%3Cg fill='none' stroke='%232B2622' stroke-width='2'%3E%3Cpath d='M0 330 H360'/%3E%3Cpath d='M330 0 V360'/%3E%3C/g%3E%3C/svg%3E");
+   --kw-route-line: #3F3832;
+   --kw-paw: #EE7A4F;
+}
+
+body.kw-landing {
+   background-color: var(--color-bg);
+}
+
+.kw-map {
+   position: relative;
+   background-image: var(--kw-map-tile);
+   background-size: 360px 360px;
+}
+
+.kw-map > section {
+   position: relative;
+   z-index: 1;
+}
+
+.kw-route {
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 0;
+   overflow: visible;
+   pointer-events: none;
+}
+
+.kw-route-guide {
+   fill: none;
+   stroke: var(--kw-route-line);
+   stroke-width: 3;
+   stroke-linecap: round;
+   stroke-dasharray: 1 10;
+}
+
+.kw-paw {
+   fill: var(--kw-paw);
+   opacity: 0;
+}
+
+.kw-paw.kw-on {
+   opacity: 0.85;
+}
+
+.kw-route-head {
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 2;
+   width: 44px;
+   height: 44px;
+   margin: -22px 0 0 -22px;
+   border-radius: 50%;
+   background: var(--color-bg-card);
+   box-shadow: 0 2px 8px var(--color-shadow-lg);
+   pointer-events: none;
+   opacity: 0;
+}
+
+.kw-route-head.kw-on {
+   opacity: 1;
+}
+
+/* Stop pins: a numbered pin on each trio card, a pin under the finish button. */
+.kw-trio-grid {
+   counter-reset: kw-stop;
+}
+
+.kw-trio-card {
+   position: relative;
+   counter-increment: kw-stop;
+}
+
+.kw-trio-card::before {
+   content: counter(kw-stop);
+   position: absolute;
+   top: -18px;
+   left: 50%;
+   width: 32px;
+   height: 32px;
+   margin-left: -16px;
+   border-radius: 50% 50% 50% 0;
+   transform: rotate(-45deg);
+   background: var(--kw-category);
+   color: var(--kw-on-accent);
+   font-weight: 700;
+   line-height: 32px;
+   text-align: center;
+}
+
+.kw-trio-card > * {
+   position: relative;
+}
+
+.kw-trio-card {
+   border-top: 1px solid var(--color-border);
+}
+
+/* The pin's number stands upright inside the rotated pin. */
+.kw-trio-card::before {
+   font-size: 0;
+}
+
+.kw-trio-card::after {
+   content: counter(kw-stop);
+   position: absolute;
+   top: -18px;
+   left: 50%;
+   width: 32px;
+   margin-left: -16px;
+   color: var(--kw-on-accent);
+   font-weight: 700;
+   line-height: 32px;
+   text-align: center;
+}
+
+.kw-section-subtitle,
+.kw-pricing-note,
+.landing-section-title,
+.kw-eyebrow,
+.kw-hero-title,
+.kw-hero-subtitle {
+   text-shadow: 0 0 6px var(--color-bg), 0 0 12px var(--color-bg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+   .kw-paw {
+      transition: opacity 0.25s ease-out;
+   }
+   .kw-route-head {
+      transition: transform 0.35s var(--kw-spring-soft), opacity 0.25s ease-out;
+   }
+}
+
+@media print {
+   .kw-route,
+   .kw-route-head {
+      display: none !important;
+   }
+}
+
+/* Text that would sit on the map's streets gets a card under it. */
+.kw-feature {
+   padding: 1.25rem;
+   border-radius: var(--radius-lg);
+   background: var(--color-bg-card);
+   border: 1px solid var(--color-border);
+}
+
+.landing-faq-item {
+   padding: 0 1.25rem;
+   margin-bottom: 0.5rem;
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius);
+   background: var(--color-bg-card);
 }

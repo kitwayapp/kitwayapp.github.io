@@ -49,7 +49,7 @@ struct LandingPageRenderer: Renderer {
       let html = helper.renderPageShell(
          head: head,
          bodyClass: "sk-page-home landing kw-landing",
-         content: "<main class=\"sk-main landing-page\">\(sections.joined())</main>"
+         content: "<main class=\"sk-main landing-page kw-map\"><svg class=\"kw-route\" aria-hidden=\"true\" focusable=\"false\"></svg>\(sections.joined())</main>"
       )
 
       let outputPath = context.outputDirectory
@@ -68,7 +68,7 @@ struct LandingPageRenderer: Renderer {
                <p class="kw-eyebrow">\(hero.eyebrow.htmlEscaped)</p>
                <h1 class="kw-hero-title">\(hero.title.htmlEscaped)</h1>
                <p class="kw-hero-subtitle">\(hero.subtitle.htmlEscaped)</p>
-               <div class="kw-hero-actions">\(self.storeAction(hero: hero, app: app))</div>
+               <div class="kw-hero-actions" data-kw-stop="start">\(self.storeAction(hero: hero, app: app))</div>
             </div>
             <img class="kw-hero-fox" src="/assets/images/fox-welcome.png" alt="\(hero.imageAlt.htmlEscaped)" width="720" height="720" fetchpriority="high"/>
          </div>
@@ -79,7 +79,7 @@ struct LandingPageRenderer: Renderer {
    private func renderTrio(_ trio: TrioSection) -> String {
       let cards = trio.items.map { item in
          """
-         <li class="kw-trio-card kw-\(item.category.htmlEscaped)">
+         <li class="kw-trio-card kw-\(item.category.htmlEscaped)" data-kw-stop="\(item.category.htmlEscaped)">
             <img src="\(item.imagePath.htmlEscaped)" alt="\(item.imageAlt.htmlEscaped)" width="480" height="480" loading="lazy"/>
             <h3 class="kw-trio-name">\(item.name.htmlEscaped)</h3>
             <p>\(item.description.htmlEscaped)</p>
@@ -100,7 +100,7 @@ struct LandingPageRenderer: Renderer {
    private func renderFeatures(_ features: FeaturesSection) -> String {
       let rows = features.items.map { feature in
          """
-         <li class="kw-feature">
+         <li class="kw-feature" data-kw-stop="feature">
             <img src="\(feature.imagePath.htmlEscaped)" alt="\(feature.imageAlt.htmlEscaped)" width="480" height="480" loading="lazy"/>
             <div>
                <h3>\(feature.title.htmlEscaped)</h3>
@@ -137,7 +137,7 @@ struct LandingPageRenderer: Renderer {
          <div class="landing-container">
             <h2 class="landing-section-title">\(pricing.title.htmlEscaped)</h2>
             <p class="kw-section-subtitle">\(pricing.subtitle.htmlEscaped)</p>
-            <div class="kw-tier-grid">\(cards)</div>
+            <div class="kw-tier-grid" data-kw-stop="pricing">\(cards)</div>
             <p class="kw-pricing-note">\(pricing.note.htmlEscaped)</p>
          </div>
       </section>
@@ -169,7 +169,7 @@ struct LandingPageRenderer: Renderer {
          <div class="landing-container">
             <h2 class="landing-section-title">\(cta.title.htmlEscaped)</h2>
             <p class="kw-section-subtitle">\(cta.subtitle.htmlEscaped)</p>
-            <div class="kw-hero-actions">\(self.storeAction(hero: hero, app: app, label: cta.buttonText))</div>
+            <div class="kw-hero-actions" data-kw-stop="finish">\(self.storeAction(hero: hero, app: app, label: cta.buttonText))</div>
          </div>
       </section>
       """

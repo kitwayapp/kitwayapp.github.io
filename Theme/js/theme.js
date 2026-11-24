@@ -51,7 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
          });
       });
 
-      // The hero's breathing fox and drifting glow pause while the hero is off screen.
+      kitwayRoute();
+
+      // The hero's breathing fox pause while the hero is off screen.
       const hero = document.querySelector('.kw-hero');
       if (hero) {
          new IntersectionObserver(function(entries) {
@@ -115,3 +117,141 @@ document.addEventListener('DOMContentLoaded', function() {
       });
    }
 });
+
+// The paw trail: a route through the page's stops ([data-kw-stop]) with paw prints along it.
+// The prints appear as the page scrolls and the fox's head walks to the last one, like the paw
+// trail on the app's map. Under Reduce Motion the whole trail shows at once and the head stays away.
+function kitwayRoute() {
+   const map = document.querySelector('.kw-map');
+   const svg = map && map.querySelector('.kw-route');
+   if (!map || !svg) return;
+   const ns = 'http://www.w3.org/2000/svg';
+   const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+   const step = 30;
+   let paws = [];
+   let head = null;
+   let pending = false;
+
+   function stopPoint(element, mapBox) {
+      const kind = element.getAttribute('data-kw-stop');
+      const target = kind === 'feature' ? (element.querySelector('img') || element) : element;
+      const box = target.getBoundingClientRect();
+      // `lane`: where the route may run sideways before this stop, the gap just above its card.
+      const lane = element.getBoundingClientRect().top - 20 - mapBox.top;
+      const x = box.left + box.width / 2 - mapBox.left;
+      if (kind === 'start') {
+         // On a phone the hero is centred: the route leaves along the screen's edge, clear of the text.
+         const startX = window.innerWidth < 860 ? 14 : box.left + 24 - mapBox.left;
+         return { x: startX, y: box.bottom + 18 - mapBox.top, lane: lane };
+      }
+      if (kind === 'feature' || kind === 'finish') return { x: x, y: box.top + box.height / 2 - mapBox.top, lane: lane };
+      return { x: x, y: box.top - mapBox.top, lane: lane };
+   }
+
+   // A smooth curve through the points (Catmull-Rom turned into cubic Béziers).
+   function curve(points) {
+      let d = 'M' + points[0].x + ' ' + points[0].y;
+      for (let i = 0; i < points.length - 1; i++) {
+         const p0 = points[i - 1] || points[i], p1 = points[i], p2 = points[i + 1], p3 = points[i + 2] || p2;
+         d += ' C' + (p1.x + (p2.x - p0.x) / 6) + ' ' + (p1.y + (p2.y - p0.y) / 6) + ' ' +
+            (p2.x - (p3.x - p1.x) / 6) + ' ' + (p2.y - (p3.y - p1.y) / 6) + ' ' + p2.x + ' ' + p2.y;
+      }
+      return d;
+   }
+
+   function pawShape() {
+      const g = document.createElementNS(ns, 'g');
+      g.setAttribute('class', 'kw-paw');
+      [[0, 3, 4.2, 3.6], [-4.6, -2.6, 1.7, 2], [-1.6, -5.2, 1.7, 2], [1.6, -5.2, 1.7, 2], [4.6, -2.6, 1.7, 2]]
+         .forEach(function(e) {
+            const ellipse = document.createElementNS(ns, 'ellipse');
+            ellipse.setAttribute('cx', e[0]); ellipse.setAttribute('cy', e[1]);
+            ellipse.setAttribute('rx', e[2]); ellipse.setAttribute('ry', e[3]);
+            g.appendChild(ellipse);
+         });
+      return g;
+   }
+
+   function build() {
+      const mapBox = map.getBoundingClientRect();
+      const raw = Array.prototype.map.call(map.querySelectorAll('[data-kw-stop]'), function(element) {
+         return stopPoint(element, mapBox);
+      });
+      // Between stops in different columns the route turns in the gap just above the next stop's
+      // card, so it does not cut across text: down from one stop, across in the gap, into the next.
+      const stops = [];
+      raw.forEach(function(point, i) {
+         const previous = raw[i - 1];
+         if (previous && Math.abs(point.x - previous.x) > 60 && point.lane - previous.y > 40) {
+            stops.push({ x: previous.x, y: point.lane }, { x: point.x, y: point.lane });
+         }
+         stops.push(point);
+      });
+      svg.textContent = '';
+      paws = [];
+      svg.setAttribute('width', map.scrollWidth);
+      svg.setAttribute('height', map.scrollHeight);
+      if (stops.length < 2) return;
+      const path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', curve(stops));
+      path.setAttribute('class', 'kw-route-guide');
+      svg.appendChild(path);
+      const length = path.getTotalLength();
+      for (let s = step, side = 1; s < length - step / 2; s += step, side = -side) {
+         const a = path.getPointAtLength(s), b = path.getPointAtLength(Math.min(s + 1, length));
+         const angle = Math.atan2(b.y - a.y, b.x - a.x);
+         const x = a.x + Math.cos(angle + Math.PI / 2) * 6 * side;
+         const y = a.y + Math.sin(angle + Math.PI / 2) * 6 * side;
+         const paw = pawShape();
+         paw.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' +
+            (angle * 180 / Math.PI + 90).toFixed(1) + ')');
+         svg.appendChild(paw);
+         paws.push({ node: paw, x: a.x, y: a.y, on: false });
+      }
+      if (!head) {
+         head = document.createElement('img');
+         head.className = 'kw-route-head';
+         head.src = '/assets/images/kitway-head.png';
+         head.alt = '';
+         head.setAttribute('aria-hidden', 'true');
+         map.appendChild(head);
+      }
+      update();
+   }
+
+   function update() {
+      pending = false;
+      const all = still.matches;
+      const reach = all ? Infinity : window.innerHeight * 0.62 - map.getBoundingClientRect().top;
+      let last = null;
+      paws.forEach(function(paw) {
+         const on = paw.y <= reach;
+         if (on !== paw.on) {
+            paw.node.classList.toggle('kw-on', on);
+            paw.on = on;
+         }
+         if (on) last = paw;
+      });
+      if (!head) return;
+      const show = !all && last !== null;
+      head.classList.toggle('kw-on', show);
+      if (show) head.style.transform = 'translate(' + last.x.toFixed(1) + 'px, ' + last.y.toFixed(1) + 'px)';
+   }
+
+   function schedule() {
+      if (pending) return;
+      pending = true;
+      window.requestAnimationFrame(update);
+   }
+
+   let resizeTimer = 0;
+   window.addEventListener('scroll', schedule, { passive: true });
+   window.addEventListener('resize', function() {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(build, 150);
+   });
+   still.addEventListener('change', update);
+   // Images and the reveal transforms change the layout: build again once they settle.
+   window.addEventListener('load', function() { window.setTimeout(build, 900); });
+   build();
+}
