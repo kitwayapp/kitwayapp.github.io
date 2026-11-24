@@ -48,6 +48,23 @@ features:
       imagePath: "/assets/images/fox-stamp.png"
       imageAlt: "The fox stamps a finished day"
 
+screens:
+  title: "Kitway on your iPhone"
+  subtitle: "Pick the hours, get three places, walk the day and keep it in your backpack."
+  items:
+    - id: "today"
+      caption: "Pick your free hours"
+      imageAlt: "Kitway's Today screen: a sun dial for choosing the hours of the day"
+    - id: "plan"
+      caption: "Three places on a map"
+      imageAlt: "A day plan: a map with three stops and a timeline of See, Taste and Unwind"
+    - id: "live"
+      caption: "Walk the day"
+      imageAlt: "A started day: the current stop and the route to the next one"
+    - id: "backpack"
+      caption: "Keep your days"
+      imageAlt: "The backpack: a map of the cities you visited, with stickers and days"
+
 pricing:
   title: "Free and Premium"
   subtitle: "Kitway is free to use. Premium removes the limits."

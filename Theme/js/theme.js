@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
          '.kw-section .kw-section-subtitle',
          '.kw-trio-grid > li',
          '.kw-feature-list > li',
+         '.kw-shot-row > .kw-shot',
          '.kw-tier-grid > .kw-tier',
          '.kw-pricing-note',
          '.landing-faq-item',

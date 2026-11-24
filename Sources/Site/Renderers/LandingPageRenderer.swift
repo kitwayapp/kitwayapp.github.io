@@ -42,6 +42,7 @@ struct LandingPageRenderer: Renderer {
          self.renderHero(data.hero, app: app),
          self.renderTrio(data.trio),
          self.renderFeatures(data.features),
+         self.renderScreens(data.screens, language: locale),
          self.renderPricing(data.pricing),
          self.renderFAQ(data.faq),
          self.renderCTA(data.cta, hero: data.hero, app: app),
@@ -114,6 +115,31 @@ struct LandingPageRenderer: Renderer {
          <div class="landing-container">
             <h2 class="landing-section-title">\(features.title.htmlEscaped)</h2>
             <ul class="kw-feature-list">\(rows)</ul>
+         </div>
+      </section>
+      """
+   }
+
+   private func renderScreens(_ screens: ScreensSection, language: String) -> String {
+      let phones = screens.items.map { screen in
+         let base = "/assets/images/screens/\(language.htmlEscaped)"
+         let id = screen.id.htmlEscaped
+         return """
+         <li class="kw-shot">
+            <div class="kw-phone">
+               <img class="kw-shot-light" src="\(base)-light-\(id).jpg" alt="\(screen.imageAlt.htmlEscaped)" width="390" height="844" loading="lazy" decoding="async"/>
+               <img class="kw-shot-dark" src="\(base)-dark-\(id).jpg" alt="\(screen.imageAlt.htmlEscaped)" width="390" height="844" loading="lazy" decoding="async"/>
+            </div>
+            <p class="kw-shot-caption">\(screen.caption.htmlEscaped)</p>
+         </li>
+         """
+      }.joined()
+      return """
+      <section id="screens" class="kw-section kw-screens">
+         <div class="landing-container">
+            <h2 class="landing-section-title">\(screens.title.htmlEscaped)</h2>
+            <p class="kw-section-subtitle">\(screens.subtitle.htmlEscaped)</p>
+            <ul class="kw-shot-row" data-kw-stop="screens">\(phones)</ul>
          </div>
       </section>
       """

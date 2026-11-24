@@ -48,6 +48,23 @@ features:
       imagePath: "/assets/images/fox-stamp.png"
       imageAlt: "Лис ставить штамп на завершений день"
 
+screens:
+  title: "Kitway у твоєму iPhone"
+  subtitle: "Обери години, отримай три місця, пройди день і збережи його в рюкзаку."
+  items:
+    - id: "today"
+      caption: "Обери вільні години"
+      imageAlt: "Екран Today у Kitway: сонячний циферблат для вибору годин дня"
+    - id: "plan"
+      caption: "Три місця на мапі"
+      imageAlt: "План дня: мапа з трьома зупинками і розклад See, Taste і Unwind"
+    - id: "live"
+      caption: "Пройди свій день"
+      imageAlt: "Розпочатий день: поточна зупинка і маршрут до наступної"
+    - id: "backpack"
+      caption: "Збережи свої дні"
+      imageAlt: "Рюкзак: мапа міст, де ти побував, з наліпками і днями"
+
 pricing:
   title: "Free і Premium"
   subtitle: "Kitway можна користуватися безкоштовно. Premium знімає обмеження."

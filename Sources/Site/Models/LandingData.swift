@@ -18,6 +18,7 @@ struct LandingData: Decodable, Sendable {
    let hero: HeroSection
    let trio: TrioSection
    let features: FeaturesSection
+   let screens: ScreensSection
    let pricing: PricingSection
    let faq: FAQSection
    let cta: CTASection
@@ -57,6 +58,20 @@ struct Feature: Decodable, Sendable {
    let title: String
    let description: String
    let imagePath: String
+   let imageAlt: String
+}
+
+/// The app's screens on phones. Each screen has a light and a dark capture per language:
+/// `/assets/images/screens/<language>-<light|dark>-<id>.jpg`.
+struct ScreensSection: Decodable, Sendable {
+   let title: String
+   let subtitle: String
+   let items: [Screen]
+}
+
+struct Screen: Decodable, Sendable {
+   let id: String
+   let caption: String
    let imageAlt: String
 }
 
