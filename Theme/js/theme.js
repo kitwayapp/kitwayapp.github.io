@@ -19,24 +19,45 @@ document.addEventListener('DOMContentLoaded', function() {
          '.landing-faq-item',
          '.kw-cta .kw-hero-actions'
       ];
+      // After its reveal a piece drops its stagger delay, so a hover settles back at once.
+      function reveal(element) {
+         element.classList.add('kw-in');
+         window.setTimeout(function() { element.style.removeProperty('--kw-delay'); }, 1200);
+      }
       const observer = new IntersectionObserver(function(entries) {
          entries.forEach(function(entry) {
             if (!entry.isIntersecting) return;
-            entry.target.classList.add('kw-in');
+            reveal(entry.target);
             observer.unobserve(entry.target);
          });
       }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      // A piece the first paint already showed stays shown: hiding it now would make it blink.
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
       groups.forEach(function(selector) {
          document.querySelectorAll(selector).forEach(function(element) {
             const siblings = Array.prototype.filter.call(element.parentElement.children, function(child) {
                return child.matches(selector);
             });
             const index = Math.min(siblings.indexOf(element), 5);
+            const box = element.getBoundingClientRect();
+            if (box.top < viewportHeight && box.bottom > 0) {
+               element.setAttribute('data-kw-reveal', '');
+               element.classList.add('kw-in');
+               return;
+            }
             element.setAttribute('data-kw-reveal', '');
             element.style.setProperty('--kw-delay', (index * 0.08) + 's');
             observer.observe(element);
          });
       });
+
+      // The hero's breathing fox and drifting glow pause while the hero is off screen.
+      const hero = document.querySelector('.kw-hero');
+      if (hero) {
+         new IntersectionObserver(function(entries) {
+            hero.classList.toggle('kw-hero-away', !entries[0].isIntersecting);
+         }).observe(hero);
+      }
    }
 
    // Dark mode toggle

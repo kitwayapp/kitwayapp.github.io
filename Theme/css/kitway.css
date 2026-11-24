@@ -542,8 +542,16 @@ summary:focus-visible {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+   /* The glow drifts for a minute after arrival, then rests (WCAG 2.2.2: no endless decoration). */
    .kw-hero::before {
-      animation: kw-glow-drift 14s ease-in-out infinite alternate;
+      animation: kw-glow-drift 14s ease-in-out 4 alternate;
+   }
+
+   /* Off screen the hero's animations pause; theme.js sets .kw-hero-away. */
+   .kw-hero.kw-hero-away::before,
+   .kw-js .kw-hero-away .kw-hero-fox,
+   .kw-hero-away .kw-hero-fox {
+      animation-play-state: paused;
    }
 
    /* Arrival: the hero builds itself top to bottom, then the fox comes in and starts breathing. */
@@ -616,6 +624,19 @@ summary:focus-visible {
    /* FAQ: the answer comes in under its question. */
    .landing-faq-item[open] p {
       animation: kw-fade-down 0.35s ease-out;
+   }
+}
+
+/* Print: everything visible and still, whatever was scrolled. */
+@media print {
+   .kw-js [data-kw-reveal],
+   .kw-js .kw-hero-text > *,
+   .kw-hero-fox,
+   .kw-hero::before {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
    }
 }
 
