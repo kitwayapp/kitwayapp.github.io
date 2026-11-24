@@ -1,0 +1,8 @@
+{
+   "legalNotice": {
+      "comment": "Kitway: the bundled Ukrainian string puts the genitive adjective before a nominative noun.",
+      "localizations": {
+         "uk": "Це переклад. Юридично обов'язковою є лише версія %@ мови."
+      }
+   }
+}

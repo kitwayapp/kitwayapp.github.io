@@ -1,0 +1,478 @@
+/* Kitway landing: the app's palette (DesignSystem Tokens.xcassets) on top of SiteKit's theme tokens.
+   Category colours: See, Taste, Unwind – light and dark values as in the app, AA on their backgrounds. */
+:root {
+   --kw-see: #1E5D55;
+   --kw-taste: #9D291F;
+   --kw-unwind: #5F3EAD;
+   --kw-see-soft: #E3F0EE;
+   --kw-taste-soft: #F8E4E1;
+   --kw-unwind-soft: #ECE6F7;
+   --kw-highlight: #F5A83B;
+   --kw-on-accent: #FFFFFF;
+   --kw-hero-glow: #F6D3A8;
+}
+
+[data-theme="dark"] {
+   --kw-see: #68BFB4;
+   --kw-taste: #F3988F;
+   --kw-unwind: #B9A7E9;
+   --kw-see-soft: #1F2F2D;
+   --kw-taste-soft: #35211F;
+   --kw-unwind-soft: #2A2438;
+   --kw-highlight: #F7B657;
+   --kw-on-accent: #2A1E17;
+   --kw-hero-glow: #4F3A2E;
+}
+
+body {
+   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+h1, h2, h3, .landing-section-title, .kw-hero-title {
+   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+   outline: 3px solid var(--color-accent);
+   outline-offset: 3px;
+   border-radius: 6px;
+}
+
+.sk-site-header {
+   background: rgba(251, 246, 239, 0.92);
+}
+
+[data-theme="dark"] .sk-site-header {
+   background: rgba(29, 26, 23, 0.92);
+}
+
+.sk-site-logo img {
+   border-radius: 8px;
+}
+
+/* ---------- Sections ---------- */
+
+.kw-section {
+   padding: 4.5rem 0;
+}
+
+.kw-section-subtitle {
+   max-width: 640px;
+   margin: -1.5rem auto 2.5rem;
+   text-align: center;
+   color: var(--color-text-secondary);
+   font-size: 1.1rem;
+   line-height: 1.6;
+}
+
+/* ---------- Hero ---------- */
+
+.kw-hero {
+   padding: 3.5rem 0 2rem;
+   background:
+      radial-gradient(60% 70% at 78% 45%, var(--kw-hero-glow) 0%, transparent 70%),
+      var(--color-bg);
+}
+
+.kw-hero-inner {
+   display: grid;
+   grid-template-columns: 1.1fr 0.9fr;
+   align-items: center;
+   gap: 2rem;
+}
+
+.kw-eyebrow {
+   margin: 0 0 0.75rem;
+   color: var(--color-accent);
+   font-weight: 600;
+   font-size: 0.95rem;
+   letter-spacing: 0.02em;
+}
+
+.kw-hero-title {
+   margin: 0 0 1rem;
+   font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+   font-weight: 800;
+   line-height: 1.08;
+   letter-spacing: -0.025em;
+   color: var(--color-text);
+}
+
+.kw-hero-subtitle {
+   margin: 0 0 2rem;
+   max-width: 34rem;
+   font-size: clamp(1.05rem, 2vw, 1.25rem);
+   line-height: 1.6;
+   color: var(--color-text-secondary);
+}
+
+.kw-hero-fox {
+   width: 100%;
+   max-width: 460px;
+   height: auto;
+   justify-self: center;
+}
+
+.kw-hero-actions {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 1rem;
+   align-items: center;
+}
+
+.kw-cta .kw-hero-actions {
+   justify-content: center;
+}
+
+.kw-store-button {
+   display: inline-flex;
+   align-items: center;
+   min-height: 48px;
+   padding: 0 1.5rem;
+   border-radius: 999px;
+   background: var(--color-accent);
+   color: var(--kw-on-accent);
+   font-weight: 600;
+   text-decoration: none;
+}
+
+.kw-store-button:hover {
+   background: var(--color-accent-hover);
+   color: var(--kw-on-accent);
+}
+
+.kw-coming-soon {
+   display: inline-flex;
+   align-items: center;
+   min-height: 44px;
+   margin: 0;
+   padding: 0 1.25rem;
+   border-radius: 999px;
+   border: 1px solid var(--color-border);
+   background: var(--color-bg-card);
+   color: var(--color-text);
+   font-weight: 600;
+}
+
+/* ---------- Trio ---------- */
+
+.kw-trio {
+   background: var(--color-bg-alt);
+}
+
+.kw-trio-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1.5rem;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.kw-trio-card {
+   --kw-category: var(--kw-see);
+   --kw-category-soft: var(--kw-see-soft);
+   padding: 1.5rem;
+   border-radius: var(--radius-lg);
+   background: var(--color-bg-card);
+   border-top: 6px solid var(--kw-category);
+   box-shadow: 0 6px 20px var(--color-shadow);
+   text-align: center;
+}
+
+.kw-trio-card.kw-taste {
+   --kw-category: var(--kw-taste);
+   --kw-category-soft: var(--kw-taste-soft);
+}
+
+.kw-trio-card.kw-unwind {
+   --kw-category: var(--kw-unwind);
+   --kw-category-soft: var(--kw-unwind-soft);
+}
+
+.kw-trio-card img {
+   width: 70%;
+   max-width: 220px;
+   height: auto;
+   border-radius: 50%;
+   background: var(--kw-category-soft);
+}
+
+.kw-trio-name {
+   display: inline-block;
+   margin: 1rem 0 0.5rem;
+   padding: 0.2rem 0.9rem;
+   border-radius: 999px;
+   background: var(--kw-category-soft);
+   color: var(--kw-category);
+   font-size: 1.15rem;
+   font-weight: 700;
+}
+
+.kw-trio-card p {
+   margin: 0;
+   color: var(--color-text-secondary);
+   line-height: 1.6;
+}
+
+/* ---------- Features ---------- */
+
+.kw-feature-list {
+   display: grid;
+   gap: 2rem;
+   max-width: 900px;
+   margin: 0 auto;
+   padding: 0;
+   list-style: none;
+}
+
+.kw-feature {
+   display: grid;
+   grid-template-columns: 180px 1fr;
+   gap: 2rem;
+   align-items: center;
+}
+
+.kw-feature:nth-child(even) {
+   grid-template-columns: 1fr 180px;
+}
+
+.kw-feature:nth-child(even) img {
+   order: 2;
+}
+
+.kw-feature img {
+   width: 180px;
+   height: 180px;
+   border-radius: 50%;
+   background: var(--color-bg-alt);
+}
+
+.kw-feature h3 {
+   margin: 0 0 0.5rem;
+   font-size: 1.35rem;
+   color: var(--color-text);
+}
+
+.kw-feature p {
+   margin: 0;
+   color: var(--color-text-secondary);
+   line-height: 1.65;
+}
+
+/* ---------- Pricing ---------- */
+
+.kw-pricing {
+   background: var(--color-bg-alt);
+}
+
+.kw-tier-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1.5rem;
+   align-items: stretch;
+}
+
+.kw-tier {
+   padding: 1.75rem;
+   border-radius: var(--radius-lg);
+   background: var(--color-bg-card);
+   border: 1px solid var(--color-border);
+}
+
+.kw-tier-highlighted {
+   border: 2px solid var(--color-accent);
+   box-shadow: 0 10px 30px var(--color-shadow-lg);
+}
+
+.kw-tier-header {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   justify-content: space-between;
+   gap: 0.5rem;
+}
+
+.kw-tier-header h3 {
+   margin: 0;
+   font-size: 1.25rem;
+   color: var(--color-text);
+}
+
+.kw-tier-badge {
+   padding: 0.2rem 0.7rem;
+   border-radius: 999px;
+   background: var(--color-accent-light);
+   color: var(--color-accent);
+   font-size: 0.85rem;
+   font-weight: 600;
+}
+
+.kw-tier-summary {
+   margin: 0.75rem 0 1rem;
+   color: var(--color-text-secondary);
+   line-height: 1.55;
+}
+
+.kw-tier ul {
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.kw-tier li {
+   position: relative;
+   padding: 0.4rem 0 0.4rem 1.6rem;
+   color: var(--color-text);
+   line-height: 1.5;
+}
+
+.kw-tier li::before {
+   content: "";
+   position: absolute;
+   left: 0.2rem;
+   top: 0.85rem;
+   width: 0.55rem;
+   height: 0.55rem;
+   border-radius: 50%;
+   background: var(--color-accent);
+}
+
+.kw-pricing-note {
+   max-width: 640px;
+   margin: 2rem auto 0;
+   text-align: center;
+   color: var(--color-text-secondary);
+   font-size: 0.95rem;
+   line-height: 1.6;
+}
+
+/* ---------- Call to action ---------- */
+
+.kw-cta {
+   text-align: center;
+}
+
+/* ---------- Static pages (privacy, licenses) ---------- */
+
+.sk-static-page pre {
+   max-height: 28rem;
+   overflow: auto;
+   white-space: pre-wrap;
+   font-size: 0.8rem;
+}
+
+.sk-static-page table {
+   display: block;
+   overflow-x: auto;
+}
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 860px) {
+   .kw-hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+   }
+
+   .kw-hero-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+   }
+
+   .kw-hero-actions {
+      justify-content: center;
+   }
+
+   .kw-hero-fox {
+      max-width: 300px;
+      grid-row: 1;
+   }
+
+   .kw-trio-grid,
+   .kw-tier-grid {
+      grid-template-columns: 1fr;
+   }
+
+   .kw-feature,
+   .kw-feature:nth-child(even) {
+      grid-template-columns: 1fr;
+      text-align: center;
+      justify-items: center;
+   }
+
+   .kw-feature:nth-child(even) img {
+      order: 0;
+   }
+
+   .kw-feature img {
+      width: 150px;
+      height: 150px;
+   }
+}
+
+/* Phone header: logo, language and theme on one row, the links on a second row; not sticky,
+   so the page keeps the screen. */
+@media (max-width: 768px) {
+   .sk-site-header {
+      position: static;
+   }
+
+   .sk-site-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+   }
+
+   .sk-site-logo {
+      margin-right: auto;
+   }
+
+   .sk-lang-picker {
+      order: 1;
+   }
+
+   .sk-theme-toggle {
+      order: 2;
+   }
+
+   .sk-nav-list {
+      order: 3;
+      flex: 0 0 100%;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+   }
+
+   .sk-lang-btn,
+   .sk-theme-toggle {
+      min-height: 44px;
+      min-width: 44px;
+   }
+}
+
+/* Contrast fixes (WCAG AA 4.5:1) for SiteKit chrome on the Kitway palette. */
+.sk-skip-link {
+   color: var(--kw-on-accent);
+}
+
+.sk-error-action a,
+.sk-error-action a:hover {
+   color: var(--kw-on-accent);
+}
+
+.kw-tier-badge,
+.sk-attribution-link,
+.sk-translation-notice-link {
+   color: var(--color-accent-hover);
+}
+
+[data-theme="dark"] .kw-tier-badge,
+[data-theme="dark"] .sk-attribution-link,
+[data-theme="dark"] .sk-translation-notice-link {
+   color: var(--color-accent);
+}

@@ -1,0 +1,53 @@
+# Kitway look: the app's DesignSystem colours (Tokens.xcassets) and Apple system fonts.
+# No web fonts and no CDN: every request stays on kitwayapp.github.io.
+name: "Kitway"
+fontPairing: "system"
+tokens:
+  colorBg:
+    any: "#FBF6EF"
+    dark: "#1D1A17"
+  colorBgAlt:
+    any: "#F3ECE2"
+    dark: "#26221E"
+  colorBgCard:
+    any: "#FFFFFF"
+    dark: "#2A2521"
+  colorText:
+    any: "#2A1E17"
+    dark: "#F6EEE6"
+  colorTextSecondary:
+    any: "#6E6259"
+    dark: "#C3B9B0"
+  colorTextMuted:
+    any: "#6E6259"
+    dark: "#B5A99E"
+  colorAccent:
+    any: "#C34A1F"
+    dark: "#EE7A4F"
+  colorAccentHover:
+    any: "#923717"
+    dark: "#F29B7B"
+  colorAccentLight:
+    any: "#FBE6DA"
+    dark: "#3D2A1F"
+  colorBorder:
+    any: "#E6DCCF"
+    dark: "#3F3832"
+  colorBorderLight:
+    any: "#EFE8DC"
+    dark: "#332D28"
+  colorShadow:
+    any: "rgba(80, 50, 30, 0.08)"
+    dark: "rgba(0, 0, 0, 0.35)"
+  colorShadowLg:
+    any: "rgba(80, 50, 30, 0.14)"
+    dark: "rgba(0, 0, 0, 0.5)"
+  radius: "12px"
+  radiusLg: "22px"
+css:
+  - "css/theme.css"
+  - "css/landing.css"
+  - "css/kitway.css"
+js:
+  - "js/theme.js"
+headInlineScript: "(function(){var t=null;try{t=localStorage.getItem('theme')}catch(e){}t=t||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})()"
