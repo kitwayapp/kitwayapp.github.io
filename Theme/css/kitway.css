@@ -631,18 +631,18 @@ summary:focus-visible {
 
 /* ============================================================
    Map and paw trail (style C)
-   The page is a city map (scripts/make-map.py) in the app's scene colours, lightened so text keeps AA. A route runs
+   The page is an illustrated travel map in the fox's diorama style. A route runs
    through the stops: the fox in the hero, See, Taste, Unwind, the features, the plans, the finish.
    theme.js draws the paw prints along it as the page scrolls; the fox's head walks with them.
    ============================================================ */
 :root {
-   --kw-map-tile: url("/assets/theme/images/map-light.svg");
+   --kw-map-tile: url("/assets/theme/images/map-light.webp");
    --kw-route-line: #D9CDBB;
    --kw-paw: #C34A1F;
 }
 
 [data-theme="dark"] {
-   --kw-map-tile: url("/assets/theme/images/map-dark.svg");
+   --kw-map-tile: url("/assets/theme/images/map-dark.webp");
    --kw-route-line: #3F3832;
    --kw-paw: #EE7A4F;
 }
@@ -653,7 +653,10 @@ body.kw-landing {
 
 .kw-map {
    position: relative;
-   /* One 1600 x 2400 city drawn by scripts/make-map.py; it repeats without a seam on long pages. */
+   /* One illustrated travel map, a 1600 x 2400 tile at 2x, drawn by the art agent in the fox's diorama
+      style (prompts on the task card). It repeats without a seam. In the day map the middle half stays at
+      luminance >= 0.75 for bare text; the side quarters carry soft shadows down to 0.62, so text that sits
+      there (the hero) has its own backing. */
    background-image: var(--kw-map-tile);
    background-size: 1600px 2400px;
    background-position: center top;
@@ -792,4 +795,26 @@ body.kw-landing {
    border: 1px solid var(--color-border);
    border-radius: var(--radius);
    background: var(--color-bg-card);
+}
+
+/* The hero text sits on the map's left quarter, where the day map has soft shadows: a light paper backing
+   keeps its text at AA on any map, like a label on a map. */
+.kw-hero-text {
+   padding: 1.5rem 1.75rem;
+   margin-left: -1.75rem;
+   border-radius: var(--radius-lg);
+   background: rgba(251, 246, 239, 0.9);
+   -webkit-backdrop-filter: blur(6px);
+   backdrop-filter: blur(6px);
+}
+
+[data-theme="dark"] .kw-hero-text {
+   background: rgba(29, 26, 23, 0.86);
+}
+
+@media (max-width: 860px) {
+   .kw-hero-text {
+      margin-left: 0;
+      padding: 1.25rem;
+   }
 }
