@@ -631,18 +631,18 @@ summary:focus-visible {
 
 /* ============================================================
    Map and paw trail (style C)
-   The page is a light city map in the app's scene colours, lightened so text keeps AA. A route runs
+   The page is a city map (scripts/make-map.py) in the app's scene colours, lightened so text keeps AA. A route runs
    through the stops: the fox in the hero, See, Taste, Unwind, the features, the plans, the finish.
    theme.js draws the paw prints along it as the page scrolls; the fox's head walks with them.
    ============================================================ */
 :root {
-   --kw-map-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Crect width='360' height='360' fill='%23F5F0E8'/%3E%3Cg fill='%23EFE8DD'%3E%3Crect x='22' y='22' width='122' height='120' rx='14'/%3E%3Crect x='196' y='22' width='108' height='120' rx='14'/%3E%3Crect x='22' y='196' width='122' height='104' rx='14'/%3E%3Crect x='196' y='196' width='108' height='104' rx='14'/%3E%3C/g%3E%3Cg fill='none' stroke='%23FAF6EF' stroke-width='16' stroke-linecap='round'%3E%3Cpath d='M0 170 C120 158 240 182 360 170'/%3E%3Cpath d='M170 0 C158 120 182 240 170 360'/%3E%3C/g%3E%3Cg fill='none' stroke='%23EEE7DC' stroke-width='2'%3E%3Cpath d='M0 330 H360'/%3E%3Cpath d='M330 0 V360'/%3E%3C/g%3E%3C/svg%3E");
+   --kw-map-tile: url("/assets/theme/images/map-light.svg");
    --kw-route-line: #D9CDBB;
    --kw-paw: #C34A1F;
 }
 
 [data-theme="dark"] {
-   --kw-map-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Crect width='360' height='360' fill='%23201C19'/%3E%3Cg fill='%2324201C'%3E%3Crect x='22' y='22' width='122' height='120' rx='14'/%3E%3Crect x='196' y='22' width='108' height='120' rx='14'/%3E%3Crect x='22' y='196' width='122' height='104' rx='14'/%3E%3Crect x='196' y='196' width='108' height='104' rx='14'/%3E%3C/g%3E%3Cg fill='none' stroke='%23292420' stroke-width='16' stroke-linecap='round'%3E%3Cpath d='M0 170 C120 158 240 182 360 170'/%3E%3Cpath d='M170 0 C158 120 182 240 170 360'/%3E%3C/g%3E%3Cg fill='none' stroke='%232B2622' stroke-width='2'%3E%3Cpath d='M0 330 H360'/%3E%3Cpath d='M330 0 V360'/%3E%3C/g%3E%3C/svg%3E");
+   --kw-map-tile: url("/assets/theme/images/map-dark.svg");
    --kw-route-line: #3F3832;
    --kw-paw: #EE7A4F;
 }
@@ -653,8 +653,10 @@ body.kw-landing {
 
 .kw-map {
    position: relative;
+   /* One 1600 x 2400 city drawn by scripts/make-map.py; it repeats without a seam on long pages. */
    background-image: var(--kw-map-tile);
-   background-size: 360px 360px;
+   background-size: 1600px 2400px;
+   background-position: center top;
 }
 
 .kw-map > section {
