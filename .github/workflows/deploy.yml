@@ -16,16 +16,13 @@ concurrency:
 
 jobs:
   build:
-    # setup-swift@v2 does not support Ubuntu 26.04, which ubuntu-latest now is.
     runs-on: ubuntu-24.04
+    # The official Swift image, the same major version as on the owner's Mac. Swift 6.2 cannot compile the
+    # swift-log that SiteKit resolves (`@nonexhaustive`), and setup-swift@v2 does not run on Ubuntu 26.04.
+    container: swift:6.4-noble
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Swift
-        uses: swift-actions/setup-swift@v2
-        with:
-          swift-version: "6.2"
 
       - name: Build the site
         run: swift run -c release Site build
