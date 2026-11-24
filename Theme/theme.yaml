@@ -50,4 +50,4 @@ css:
   - "css/kitway.css"
 js:
   - "js/theme.js"
-headInlineScript: "(function(){var t=null;try{t=localStorage.getItem('theme')}catch(e){}t=t||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})()"
+headInlineScript: "(function(){var t=null;try{t=localStorage.getItem('theme')}catch(e){}t=t||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);if('IntersectionObserver' in window)document.documentElement.classList.add('kw-js')})()"

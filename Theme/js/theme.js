@@ -5,6 +5,40 @@ function kitwayStore(key, value) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+   // Scroll reveal: mark the pieces of each section; each one rises in when it enters the screen.
+   // Siblings in one group come in one after another (--kw-delay). Without IntersectionObserver the
+   // head script does not add .kw-js, so nothing is hidden.
+   if (document.documentElement.classList.contains('kw-js')) {
+      const groups = [
+         '.kw-section .landing-section-title',
+         '.kw-section .kw-section-subtitle',
+         '.kw-trio-grid > li',
+         '.kw-feature-list > li',
+         '.kw-tier-grid > .kw-tier',
+         '.kw-pricing-note',
+         '.landing-faq-item',
+         '.kw-cta .kw-hero-actions'
+      ];
+      const observer = new IntersectionObserver(function(entries) {
+         entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('kw-in');
+            observer.unobserve(entry.target);
+         });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      groups.forEach(function(selector) {
+         document.querySelectorAll(selector).forEach(function(element) {
+            const siblings = Array.prototype.filter.call(element.parentElement.children, function(child) {
+               return child.matches(selector);
+            });
+            const index = Math.min(siblings.indexOf(element), 5);
+            element.setAttribute('data-kw-reveal', '');
+            element.style.setProperty('--kw-delay', (index * 0.08) + 's');
+            observer.observe(element);
+         });
+      });
+   }
+
    // Dark mode toggle
    const toggle = document.querySelector('.sk-theme-toggle');
    if (toggle) {

@@ -70,10 +70,23 @@ summary:focus-visible {
 /* ---------- Hero ---------- */
 
 .kw-hero {
+   position: relative;
+   overflow: hidden;
    padding: 3.5rem 0 2rem;
-   background:
-      radial-gradient(60% 70% at 78% 45%, var(--kw-hero-glow) 0%, transparent 70%),
-      var(--color-bg);
+   background: var(--color-bg);
+}
+
+/* The warm glow behind the fox: its own layer, so it can drift with transform only. */
+.kw-hero::before {
+   content: "";
+   position: absolute;
+   inset: -20% -10% -20% 30%;
+   background: radial-gradient(50% 55% at 60% 50%, var(--kw-hero-glow) 0%, transparent 70%);
+   pointer-events: none;
+}
+
+.kw-hero-inner {
+   position: relative;
 }
 
 .kw-hero-inner {
@@ -479,4 +492,137 @@ summary:focus-visible {
 [data-theme="dark"] .sk-nav-item a:hover,
 [data-theme="dark"] .sk-lang-option:hover {
    color: var(--color-accent);
+}
+
+
+/* ============================================================
+   Motion
+   Web version of Skills/Motion/motion-rules: motion shows a change, only transform and opacity move,
+   springs for movement, plain fades for opacity, and every animation has a Reduce Motion behaviour.
+   Everything is visible without JavaScript: the hidden starting states apply only under .kw-js.
+   ============================================================ */
+:root {
+   /* A spring with a small overshoot, like SwiftUI .smooth / .bouncy. */
+   --kw-spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+   --kw-spring-soft: cubic-bezier(0.25, 1, 0.5, 1);
+   --kw-rise: 0.7s;
+   --kw-fade: 0.45s;
+   --kw-step: 0.08s;
+}
+
+@keyframes kw-rise {
+   from { opacity: 0; transform: translateY(18px); }
+   to { opacity: 1; transform: none; }
+}
+
+@keyframes kw-fox-arrive {
+   from { opacity: 0; transform: translateY(28px) scale(0.92); }
+   to { opacity: 1; transform: none; }
+}
+
+/* The fox is always alive: a slow breath, the body stretching up a little from its feet. */
+@keyframes kw-breathe {
+   0%, 100% { transform: scale(1, 1); }
+   50% { transform: scale(1.012, 1.028); }
+}
+
+@keyframes kw-glow-drift {
+   from { transform: translate(0, 0) scale(1); }
+   to { transform: translate(-4%, 3%) scale(1.08); }
+}
+
+@keyframes kw-pop {
+   0% { transform: scale(0.82); }
+   100% { transform: scale(1); }
+}
+
+@keyframes kw-fade-down {
+   from { opacity: 0; transform: translateY(-6px); }
+   to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+   .kw-hero::before {
+      animation: kw-glow-drift 14s ease-in-out infinite alternate;
+   }
+
+   /* Arrival: the hero builds itself top to bottom, then the fox comes in and starts breathing. */
+   .kw-js .kw-hero-text > * {
+      opacity: 0;
+      animation: kw-rise var(--kw-rise) var(--kw-spring-soft) forwards;
+   }
+   .kw-js .kw-hero-text > :nth-child(1) { animation-delay: 0.05s; }
+   .kw-js .kw-hero-text > :nth-child(2) { animation-delay: 0.13s; }
+   .kw-js .kw-hero-text > :nth-child(3) { animation-delay: 0.21s; }
+   .kw-js .kw-hero-text > :nth-child(4) { animation-delay: 0.29s; }
+
+   .kw-js .kw-hero-fox {
+      opacity: 0;
+      transform-origin: 50% 92%;
+      animation:
+         kw-fox-arrive 0.8s var(--kw-spring) 0.2s forwards,
+         kw-breathe 3.6s ease-in-out 1.1s infinite;
+   }
+   .kw-hero-fox {
+      transform-origin: 50% 92%;
+      animation: kw-breathe 3.6s ease-in-out infinite;
+   }
+
+   /* Scroll reveal: theme.js marks the pieces and adds .kw-in when they enter the screen. */
+   .kw-js [data-kw-reveal] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition:
+         opacity var(--kw-fade) ease-out var(--kw-delay, 0s),
+         transform var(--kw-rise) var(--kw-spring) var(--kw-delay, 0s);
+   }
+   .kw-js [data-kw-reveal].kw-in {
+      opacity: 1;
+      transform: none;
+   }
+
+   /* Each trio fox pops onto its card as the card lands. */
+   .kw-js .kw-trio-card.kw-in img {
+      animation: kw-pop 0.6s var(--kw-spring) calc(var(--kw-delay, 0s) + 0.15s) both;
+   }
+
+   /* Hover: a small lift on a spring, transform only. */
+   .kw-trio-card,
+   .kw-tier,
+   .kw-feature img,
+   .kw-store-button {
+      transition: transform 0.45s var(--kw-spring);
+   }
+   .kw-js [data-kw-reveal].kw-trio-card,
+   .kw-js [data-kw-reveal].kw-tier {
+      transition:
+         opacity var(--kw-fade) ease-out var(--kw-delay, 0s),
+         transform var(--kw-rise) var(--kw-spring) var(--kw-delay, 0s);
+   }
+   .kw-trio-card:hover,
+   .kw-tier:hover,
+   .kw-js [data-kw-reveal].kw-in.kw-trio-card:hover,
+   .kw-js [data-kw-reveal].kw-in.kw-tier:hover {
+      transform: translateY(-6px);
+      transition-delay: 0s;
+   }
+   .kw-feature:hover img {
+      transform: translateY(-6px) rotate(-3deg);
+   }
+   .kw-store-button:hover {
+      transform: scale(1.04);
+   }
+
+   /* FAQ: the answer comes in under its question. */
+   .landing-faq-item[open] p {
+      animation: kw-fade-down 0.35s ease-out;
+   }
+}
+
+/* Reduce Motion: no movement. The fox stands still, pieces are visible at once (a plain fade at most). */
+@media (prefers-reduced-motion: reduce) {
+   .kw-js [data-kw-reveal] {
+      opacity: 1;
+      transform: none;
+   }
 }
