@@ -5,7 +5,7 @@ slug: "privacy"
 legalDocument: true
 ---
 
-Version of 2026-11-24.
+Version of 2026-11-28.
 
 ---
 
@@ -31,7 +31,7 @@ Kitway keeps your data on your iPhone:
   and the mood and note you added to a place. Plans are not synced.
 - **Memories:** the finished days, with the visited places, their coordinates, the stickers you earned,
   and your notes and moods. A memory also keeps the details of each place from the plan and, when one was
-  found, a photo of the place from Wikimedia Commons with its author and licence. Memories are synced through
+  found, a photo of the place from Wikimedia Commons with its licence and, when Commons gives one, its author. Memories are synced through
   your private iCloud database (see below).
 - **Photos in memories** are references to photos in your library. Kitway does not copy or upload them.
   It keeps only the identifiers that iOS gives to find the photo again.
@@ -198,7 +198,7 @@ stays. To have an old account deleted, write to oleksandr.solokha@gmail.com.
 
 ## Children
 
-Kitway is not directed at children under 13.
+Kitway is for people aged 18 and over. It is not directed at anyone under 18: the AI service that writes the plans (Google Gemini) is for adults only.
 
 ## This website
 
